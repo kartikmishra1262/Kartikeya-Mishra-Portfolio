@@ -55,12 +55,15 @@ const EXPERIENCES = [
     location: 'Jaipur, India',
     points: [
       {
+        title: '',
         text: ' Managed gemstone inventory and maintained inventory records using Excel.',
       },
       {
+        title: '',
         text: 'Supervised gemstone-related operations, including buying and purchasing activities.',
       },
       {
+        title: '',
         text: ' Coordinated day-to-day gemstone department work and inventory management.',
       },
     ],
