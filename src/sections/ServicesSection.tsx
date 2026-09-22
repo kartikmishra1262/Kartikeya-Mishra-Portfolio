@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import FadeIn from '../components/FadeIn';
 
 const SERVICES = [
@@ -7,56 +6,48 @@ const SERVICES = [
     name: 'Graphic Design',
     description:
       'Creating professional and engaging visual designs for digital and print communication.',
-    link: '/graphic-design',
   },
   {
     number: '02',
     name: 'UI Design',
     description:
       'Designing clean, modern and user-friendly interfaces with attention to layout and visual hierarchy.',
-    link: '/ui-design',
   },
   {
     number: '03',
     name: 'Social Media Design',
     description:
       'Creating social media graphics and promotional creatives for effective digital communication.',
-    link: '/social-media-design',
   },
   {
     number: '04',
     name: 'Poster & Creative Design',
     description:
       'Designing posters, promotional creatives and marketing visuals for different platforms.',
-    link: '/poster-creative-design',
   },
   {
     number: '05',
     name: 'Branding & Visual Design',
     description:
       'Creating consistent visual identities and brand-focused designs that communicate clearly.',
-    link: '/branding-visual-design',
   },
   {
     number: '06',
     name: 'Image Editing & Retouching',
     description:
       'Enhancing and retouching images to produce clean and professional visual content.',
-    link: '/image-editing-retouching',
   },
   {
     number: '07',
     name: 'Layout & Typography',
     description:
       'Building balanced layouts and using typography effectively to improve readability and visual impact.',
-    link: '/layout-typography',
   },
   {
     number: '08',
     name: 'Digital Content Design',
     description:
       'Creating visually engaging digital content for websites, social media and marketing materials.',
-    link: '/digital-content-design',
   },
 ];
 
@@ -78,7 +69,6 @@ export default function ServicesSection() {
         md:py-32
       "
     >
-      {/* HEADING */}
       <FadeIn delay={0} y={30}>
         <h2
           className="
@@ -97,7 +87,6 @@ export default function ServicesSection() {
         </h2>
       </FadeIn>
 
-      {/* SUBTLE DETAIL */}
       <FadeIn delay={0.08} y={15}>
         <div className="mx-auto mb-16 mt-9 flex max-w-[150px] items-center gap-3 sm:mb-20 md:mb-24">
           <span className="h-px flex-1 bg-black/15" />
@@ -106,12 +95,10 @@ export default function ServicesSection() {
         </div>
       </FadeIn>
 
-      {/* SKILLS LIST */}
       <div className="mx-auto max-w-6xl border-t border-black/15">
         {SERVICES.map((service, i) => (
           <FadeIn key={service.number} delay={i * 0.05} y={25}>
-            <Link
-              to={service.link}
+            <div
               className="
                 group
                 relative
@@ -130,17 +117,14 @@ export default function ServicesSection() {
                   items-start
                   gap-5
                   py-8
-
                   sm:grid-cols-[120px_1fr]
                   sm:gap-8
                   sm:py-10
-
-                  md:grid-cols-[170px_1fr_auto]
+                  md:grid-cols-[170px_1fr]
                   md:gap-10
                   md:py-12
                 "
               >
-                {/* NUMBER */}
                 <span
                   className="
                     font-black
@@ -166,7 +150,6 @@ export default function ServicesSection() {
                   ))}
                 </span>
 
-                {/* CONTENT */}
                 <div
                   className="
                     min-w-0
@@ -210,27 +193,8 @@ export default function ServicesSection() {
                     {service.description}
                   </p>
                 </div>
-
-                {/* MINIMAL ARROW */}
-                <span
-                  className="
-                    hidden
-                    pt-1
-                    text-2xl
-                    font-light
-                    text-black/25
-                    transition-all
-                    duration-300
-                    group-hover:translate-x-1
-                    group-hover:-translate-y-1
-                    group-hover:text-black/70
-                    md:block
-                  "
-                >
-                  ↗
-                </span>
               </div>
-            </Link>
+            </div>
           </FadeIn>
         ))}
       </div>

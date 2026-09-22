@@ -10,7 +10,15 @@ import EducationSection from './sections/EducationSection';
 import ProjectsSection from './sections/ProjectsSection';
 import SocialSection from './sections/SocialSection';
 
-import GraphicDesignPage from './pages/GraphicDesignPage';
+// Software Pages
+import Photoshop from './pages/photoshop';
+import Illustrator from './pages/illustrator';
+import Coreldraw from './pages/Coreldraw';
+import Figma from './pages/Figma';
+import Canva from './pages/Canva';
+import PremierePro from './pages/Premiere pro';
+import AfterEffects from './pages/After Effects';
+import HtmlCss from './pages/html-css';
 
 function HomePage() {
   return (
@@ -35,14 +43,51 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         {/* MAIN PORTFOLIO */}
         <Route path="/" element={<HomePage />} />
 
-        {/* GRAPHIC DESIGN PAGE */}
+        {/* SOFTWARE PAGES */}
         <Route
-        path="/:skill"
-        element={<GraphicDesignPage />}
+          path="/software/photoshop"
+          element={<Photoshop />}
         />
+
+        <Route
+          path="/software/illustrator"
+          element={<Illustrator />}
+        />
+
+        <Route
+          path="/software/coreldraw"
+          element={<Coreldraw />}
+        />
+
+        <Route
+          path="/software/figma"
+          element={<Figma />}
+        />
+
+        <Route
+          path="/software/canva"
+          element={<Canva />}
+        />
+
+        <Route
+          path="/software/premiere-pro"
+          element={<PremierePro />}
+        />
+
+        <Route
+          path="/software/after-effects"
+          element={<AfterEffects />}
+        />
+
+        <Route
+          path="/software/html-css"
+          element={<HtmlCss />}
+        />
+
       </Routes>
     </BrowserRouter>
   );
