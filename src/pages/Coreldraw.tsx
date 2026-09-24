@@ -10,6 +10,30 @@ const WORK_IMAGES = [
   '/work/work6.jpg',
   '/work/work7.jpg',
   '/work/work8.jpg',
+  '/work/work9.jpg',
+  '/work/work10.jpg',
+  '/work/work11.jpg',
+  '/work/work12.jpg',
+  '/work/work13.jpg',
+  '/work/work14.jpg',
+  '/work/work15.jpg',
+  '/work/work16.jpg',
+  '/work/work17.jpg',
+  '/work/work18.jpg',
+  '/work/work19.jpg',
+  '/work/work20.jpg',
+  '/work/work21.jpg',
+  '/work/work22.jpg',
+  '/work/work23.jpg',
+  '/work/work24.jpg',
+  '/work/work25.jpg',
+  '/work/work26.jpg',
+  '/work/work27.jpg',
+  '/work/work28.jpg',
+  '/work/work29.jpg',
+  '/work/work30.jpg',
+  '/work/work31.jpg',
+  '/work/work32.jpg',
 ];
 
 const PAGE_TITLES: Record<string, string> = {
@@ -29,7 +53,9 @@ export default function GraphicDesignPage() {
   const pageTitle =
     PAGE_TITLES[skill || 'graphic-design'] || 'Graphic Design';
 
-  // Currently selected image
+  // --------------------------------------------------
+  // SELECTED IMAGE
+  // --------------------------------------------------
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   // --------------------------------------------------
@@ -70,19 +96,19 @@ export default function GraphicDesignPage() {
     if (selectedIndex === null) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Close
+      // CLOSE
       if (event.key === 'Escape') {
         setSelectedIndex(null);
       }
 
-      // Next
+      // NEXT
       if (event.key === 'ArrowRight') {
         setSelectedIndex(
           (selectedIndex + 1) % WORK_IMAGES.length
         );
       }
 
-      // Previous
+      // PREVIOUS
       if (event.key === 'ArrowLeft') {
         setSelectedIndex(
           (selectedIndex - 1 + WORK_IMAGES.length) %
@@ -126,46 +152,126 @@ export default function GraphicDesignPage() {
       className="min-h-screen w-full"
       style={{ backgroundColor: '#0C0C0C' }}
     >
+
       {/* ==================================================
           TOP SECTION
       ================================================== */}
       <section className="min-h-screen w-full relative">
 
-        {/* NAVBAR */}
-        <nav className="flex justify-between px-6 md:px-10 pt-6 md:pt-8 relative z-20">
+        {/* ==================================================
+            NAVBAR
+        ================================================== */}
+        <nav
+          className="
+            flex
+            justify-between
+            px-6
+            md:px-10
+            pt-6
+            md:pt-8
+            relative
+            z-20
+          "
+        >
           <a
             href="/#about"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200"
+            className="
+              text-[#D7E2EA]
+              font-medium
+              uppercase
+              tracking-wider
+              text-sm
+              md:text-lg
+              lg:text-[1.4rem]
+              hover:opacity-70
+              transition-opacity
+              duration-200
+            "
           >
             About
           </a>
 
           <a
             href="/#skills"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200"
+            className="
+              text-[#D7E2EA]
+              font-medium
+              uppercase
+              tracking-wider
+              text-sm
+              md:text-lg
+              lg:text-[1.4rem]
+              hover:opacity-70
+              transition-opacity
+              duration-200
+            "
           >
             Skills
           </a>
 
           <a
             href="/#projects"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200"
+            className="
+              text-[#D7E2EA]
+              font-medium
+              uppercase
+              tracking-wider
+              text-sm
+              md:text-lg
+              lg:text-[1.4rem]
+              hover:opacity-70
+              transition-opacity
+              duration-200
+            "
           >
             Projects
           </a>
 
           <a
             href="/#contact-area"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200"
+            className="
+              text-[#D7E2EA]
+              font-medium
+              uppercase
+              tracking-wider
+              text-sm
+              md:text-lg
+              lg:text-[1.4rem]
+              hover:opacity-70
+              transition-opacity
+              duration-200
+            "
           >
             Contact
           </a>
         </nav>
 
-        {/* BIG TITLE */}
-        <div className="flex items-center justify-center min-h-[80vh] px-6 md:px-10 overflow-hidden">
+
+        {/* ==================================================
+            BIG TITLE
+        ================================================== */}
+        <div
+          className="
+            flex
+            items-center
+            justify-center
+            min-h-[80vh]
+            px-6
+            md:px-10
+            overflow-hidden
+          "
+        >
           <h1
-            className="hero-heading font-black uppercase leading-none whitespace-nowrap text-center text-[#D7E2EA] w-full"
+            className="
+              hero-heading
+              font-black
+              uppercase
+              leading-none
+              whitespace-nowrap
+              text-center
+              text-[#D7E2EA]
+              w-full
+            "
             style={{
               fontSize: getTitleSize(),
               letterSpacing: '-0.035em',
@@ -177,14 +283,33 @@ export default function GraphicDesignPage() {
 
       </section>
 
+
       {/* ==================================================
           SELECTED WORK
       ================================================== */}
-      <section className="px-5 sm:px-8 md:px-10 pb-24 md:pb-32">
-        <div className="max-w-7xl mx-auto">
+      <section
+        className="
+          px-5
+          sm:px-8
+          md:px-10
+          pb-24
+          md:pb-32
+        "
+      >
 
+        <div className="w-full">
+
+          {/* ==================================================
+              SECTION TITLE
+          ================================================== */}
           <h2
-            className="text-[#D7E2EA] uppercase font-bold mb-10 md:mb-14"
+            className="
+              text-[#D7E2EA]
+              uppercase
+              font-bold
+              mb-8
+              md:mb-10
+            "
             style={{
               fontSize: 'clamp(1.5rem, 3vw, 3rem)',
             }}
@@ -192,93 +317,176 @@ export default function GraphicDesignPage() {
             Selected Work
           </h2>
 
-          {/* IMAGE GALLERY */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+
+          {/* ==================================================
+              MASONRY IMAGE GALLERY
+
+              - 4 columns desktop
+              - 2 columns mobile
+              - Original image proportions preserved
+              - No cropping
+              - No stretching
+              - 16px gap
+          ================================================== */}
+          <div
+            className="
+              columns-2
+              md:columns-4
+              gap-3
+              md:gap-4
+            "
+          >
+
             {WORK_IMAGES.map((image, index) => (
+
               <div
                 key={image}
                 onClick={() => setSelectedIndex(index)}
-                className="overflow-hidden rounded-[24px] md:rounded-[32px] cursor-pointer"
+                className="
+                  group
+                  relative
+                  overflow-hidden
+                  rounded-[10px]
+                  md:rounded-[12px]
+                  cursor-pointer
+                  mb-3
+                  md:mb-4
+                  break-inside-avoid
+                  bg-[#151515]
+                "
               >
+
                 <img
                   src={image}
                   alt={`${pageTitle} Work ${index + 1}`}
-                  className="w-full h-auto object-cover transition-transform duration-500 hover:scale-[1.03]"
+                  className="
+                    block
+                    w-full
+                    h-auto
+                    object-contain
+                    transition-transform
+                    duration-500
+                    ease-out
+                    group-hover:scale-[1.03]
+                  "
                   loading="lazy"
                 />
+
               </div>
+
             ))}
+
           </div>
 
         </div>
+
       </section>
+
 
       {/* ==================================================
           IMAGE LIGHTBOX
       ================================================== */}
       {selectedIndex !== null && (
+
         <div
-          className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-8"
+          className="
+            fixed
+            inset-0
+            z-[999]
+            flex
+            items-center
+            justify-center
+            p-4
+            sm:p-8
+          "
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.94)',
           }}
           onClick={() => setSelectedIndex(null)}
         >
-{/* ==================================================
-    CLOSE BUTTON
-================================================== */}
-<button
-  type="button"
-  onClick={() => setSelectedIndex(null)}
-  className="fixed top-5 right-5 sm:top-8 sm:right-8
-             w-10 h-10 sm:w-12 sm:h-12
-             rounded-full
-             flex items-center justify-center
-             z-[1002]
-             bg-white/10
-             backdrop-blur-md
-             border border-white/20
-             hover:bg-white/20
-             hover:scale-105
-             transition-all duration-200"
-  aria-label="Close image preview"
->
-  <span
-    className="relative
-               w-4 h-4
-               sm:w-5 sm:h-5
-               block"
-  >
-    {/* X - Line 1 */}
-    <span
-      className="absolute
-                 left-1/2
-                 top-1/2
-                 w-full
-                 h-[2px]
-                 bg-white
-                 rounded-full
-                 -translate-x-1/2
-                 -translate-y-1/2
-                 rotate-45"
-    />
 
-    {/* X - Line 2 */}
-    <span
-      className="absolute
-                 left-1/2
-                 top-1/2
-                 w-full
-                 h-[2px]
-                 bg-white
-                 rounded-full
-                 -translate-x-1/2
-                 -translate-y-1/2
-                 -rotate-45"
-    />
-  </span>
-</button>
-         {/* ==================================================
+          {/* ==================================================
+              CLOSE BUTTON
+          ================================================== */}
+          <button
+            type="button"
+            onClick={() => setSelectedIndex(null)}
+            className="
+              fixed
+              top-5
+              right-5
+              sm:top-8
+              sm:right-8
+              w-10
+              h-10
+              sm:w-12
+              sm:h-12
+              rounded-full
+              flex
+              items-center
+              justify-center
+              z-[1002]
+              bg-white/10
+              backdrop-blur-md
+              border
+              border-white/20
+              hover:bg-white/20
+              hover:scale-105
+              transition-all
+              duration-200
+            "
+            aria-label="Close image preview"
+          >
+
+            <span
+              className="
+                relative
+                w-4
+                h-4
+                sm:w-5
+                sm:h-5
+                block
+              "
+            >
+
+              {/* X - Line 1 */}
+              <span
+                className="
+                  absolute
+                  left-1/2
+                  top-1/2
+                  w-full
+                  h-[2px]
+                  bg-white
+                  rounded-full
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rotate-45
+                "
+              />
+
+              {/* X - Line 2 */}
+              <span
+                className="
+                  absolute
+                  left-1/2
+                  top-1/2
+                  w-full
+                  h-[2px]
+                  bg-white
+                  rounded-full
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  -rotate-45
+                "
+              />
+
+            </span>
+
+          </button>
+
+
+          {/* ==================================================
               PREVIOUS BUTTON
           ================================================== */}
           <button
@@ -287,46 +495,69 @@ export default function GraphicDesignPage() {
               e.stopPropagation();
               showPreviousImage();
             }}
-            className="fixed left-3 sm:left-6 md:left-10
-                       top-1/2 -translate-y-1/2
-                       z-[1002]
-                       w-12 h-12
-                       sm:w-14 sm:h-14
-                       md:w-16 md:h-16
-                       rounded-full
-                       bg-white/10
-                       backdrop-blur-md
-                       border border-white/20
-                       flex items-center justify-center
-                       hover:bg-white/20
-                       hover:scale-105
-                       transition-all duration-200"
+            className="
+              fixed
+              left-3
+              sm:left-6
+              md:left-10
+              top-1/2
+              -translate-y-1/2
+              z-[1002]
+              w-12
+              h-12
+              sm:w-14
+              sm:h-14
+              md:w-16
+              md:h-16
+              rounded-full
+              bg-white/10
+              backdrop-blur-md
+              border
+              border-white/20
+              flex
+              items-center
+              justify-center
+              hover:bg-white/20
+              hover:scale-105
+              transition-all
+              duration-200
+            "
             aria-label="Previous image"
           >
+
             <span
-              className="block
-                         w-3.5 h-3.5
-                         sm:w-4 sm:h-4
-                         border-l-2
-                         border-b-2
-                         border-white
-                         rotate-45
-                         translate-x-[2px]"
+              className="
+                block
+                w-3.5
+                h-3.5
+                sm:w-4
+                sm:h-4
+                border-l-2
+                border-b-2
+                border-white
+                rotate-45
+                translate-x-[2px]
+              "
             />
+
           </button>
 
+
           {/* ==================================================
-              IMAGE
+              LIGHTBOX IMAGE
           ================================================== */}
           <img
             src={WORK_IMAGES[selectedIndex]}
             alt={`${pageTitle} Preview ${selectedIndex + 1}`}
             onClick={(e) => e.stopPropagation()}
-            className="max-w-[85vw]
-                       max-h-[88vh]
-                       object-contain
-                       rounded-2xl"
+            className="
+              max-w-[85vw]
+              max-h-[88vh]
+              object-contain
+              rounded-2xl
+            "
           />
+
 
           {/* ==================================================
               NEXT BUTTON
@@ -337,53 +568,79 @@ export default function GraphicDesignPage() {
               e.stopPropagation();
               showNextImage();
             }}
-            className="fixed right-3 sm:right-6 md:right-10
-                       top-1/2 -translate-y-1/2
-                       z-[1002]
-                       w-12 h-12
-                       sm:w-14 sm:h-14
-                       md:w-16 md:h-16
-                       rounded-full
-                       bg-white/10
-                       backdrop-blur-md
-                       border border-white/20
-                       flex items-center justify-center
-                       hover:bg-white/20
-                       hover:scale-105
-                       transition-all duration-200"
+            className="
+              fixed
+              right-3
+              sm:right-6
+              md:right-10
+              top-1/2
+              -translate-y-1/2
+              z-[1002]
+              w-12
+              h-12
+              sm:w-14
+              sm:h-14
+              md:w-16
+              md:h-16
+              rounded-full
+              bg-white/10
+              backdrop-blur-md
+              border
+              border-white/20
+              flex
+              items-center
+              justify-center
+              hover:bg-white/20
+              hover:scale-105
+              transition-all
+              duration-200
+            "
             aria-label="Next image"
           >
+
             <span
-              className="block
-                         w-3.5 h-3.5
-                         sm:w-4 sm:h-4
-                         border-r-2
-                         border-t-2
-                         border-white
-                         rotate-45
-                         -translate-x-[2px]"
+              className="
+                block
+                w-3.5
+                h-3.5
+                sm:w-4
+                sm:h-4
+                border-r-2
+                border-t-2
+                border-white
+                rotate-45
+                -translate-x-[2px]
+              "
             />
+
           </button>
+
 
           {/* ==================================================
               IMAGE COUNTER
           ================================================== */}
           <div
-            className="fixed
-                       bottom-5 sm:bottom-8
-                       left-1/2
-                       -translate-x-1/2
-                       z-[1002]
-                       text-white/80
-                       text-sm sm:text-base
-                       tracking-widest
-                       uppercase"
+            className="
+              fixed
+              bottom-5
+              sm:bottom-8
+              left-1/2
+              -translate-x-1/2
+              z-[1002]
+              text-white/80
+              text-sm
+              sm:text-base
+              tracking-widest
+              uppercase
+            "
           >
             {selectedIndex + 1} / {WORK_IMAGES.length}
           </div>
 
         </div>
+
       )}
+
     </div>
   );
 }
