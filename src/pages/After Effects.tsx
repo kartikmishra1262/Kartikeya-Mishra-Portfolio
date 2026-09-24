@@ -37,7 +37,7 @@ const WORK_IMAGES = [
 ];
 
 const PAGE_TITLES: Record<string, string> = {
-  'graphic-design': 'Graphic Design',
+  'graphic-design': 'AFTER EFFECTS WORK',
   'ui-design': 'UI Design',
   'social-media-design': 'Social Media Design',
   'poster-creative-design': 'Poster & Creative Design',
