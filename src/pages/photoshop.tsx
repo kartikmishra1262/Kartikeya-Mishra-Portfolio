@@ -10,6 +10,8 @@ const WORK_IMAGES = [
   '/work/work6.jpg',
   '/work/work7.jpg',
   '/work/work8.jpg',
+  '/work/work9.jpg',
+  '/work/work10.jpg',
 ];
 
 const PAGE_TITLES: Record<string, string> = {
