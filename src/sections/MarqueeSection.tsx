@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 
 const ROW_1_SOURCE = [
-  '/work/work1.jpg',
-  '/work/work2.jpg',
-  '/work/work3.jpg',
-  '/work/work4.jpg',
+  '/photoshopwork/work1.jpg',
+  '/photoshopwork/work19.jpg',
+  '/photoshopwork/work6.jpg',
+  '/photoshopwork/work25.jpg',
 ];
 
 const ROW_2_SOURCE = [
-  '/work/work5.jpg',
-  '/work/work6.jpg',
-  '/work/work7.jpg',
-  '/work/work8.jpg',
+  '/photoshopwork/work3.jpg',
+  '/photoshopwork/work9.jpg',
+  '/photoshopwork/work16.jpg',
+  '/photoshopwork/work17.jpg',
 ];
 
 // Repeat images so the moving rows stay filled

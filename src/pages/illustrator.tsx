@@ -1,82 +1,71 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const WORK_IMAGES = [
-  '/illustratorwork/Iwork1.png',
-  '/illustratorwork/Iwork2.jpg',
-  '/illustratorwork/Iwork3.jpg',
-  '/illustratorwork/Iwork4.png',
-  '/illustratorwork/Iwork5.jpg',
-  '/illustratorwork/Iwork6.jpg',
-  '/illustratorwork/Iwork7.jpg',
-  '/illustratorwork/Iwork8.png',
-  '/illustratorwork/Iwork9.jpg',
-  '/illustratorwork/Iwork10.jpg',
-  '/illustratorwork/Iwork11.jpg',
-  '/illustratorwork/Iwork12.jpg',
-  '/illustratorwork/Iwork13.png',
-  '/illustratorwork/Iwork14.jpg',
-  '/illustratorwork/Iwork15.png',
-  '/illustratorwork/Iwork16.png',
-  '/illustratorwork/Iwork17.jpg',
+  '/Illustratorwork/Iwork1.png',
+  '/Illustratorwork/Iwork2.jpg',
+  '/Illustratorwork/Iwork3.jpg',
+  '/Illustratorwork/Iwork4.png',
+  '/Illustratorwork/Iwork5.jpg',
+  '/Illustratorwork/Iwork6.jpg',
+  '/Illustratorwork/Iwork7.jpg',
+  '/Illustratorwork/Iwork8.png',
+  '/Illustratorwork/Iwork9.jpg',
+  '/Illustratorwork/Iwork10.jpg',
+  '/Illustratorwork/Iwork11.jpg',
+  '/Illustratorwork/Iwork12.jpg',
+  '/Illustratorwork/Iwork13.png',
+  '/Illustratorwork/Iwork14.jpg',
+  '/Illustratorwork/Iwork15.png',
+  '/Illustratorwork/Iwork16.png',
+  '/Illustratorwork/Iwork17.jpg',
 ];
 
-const PAGE_TITLES: Record<string, string> = {
-  'graphic-design': 'ILLUSTRATOR WORK',
-  'ui-design': 'UI Design',
-  'social-media-design': 'Social Media Design',
-  'poster-creative-design': 'Poster & Creative Design',
-  'branding-visual-design': 'Branding & Visual Design',
-  'image-editing-retouching': 'Image Editing & Retouching',
-  'layout-typography': 'Layout & Typography',
-  'digital-content-design': 'Digital Content Design',
-};
-
-export default function GraphicDesignPage() {
-  const { skill } = useParams();
-
-  const pageTitle =
-    PAGE_TITLES[skill || 'graphic-design'] || 'Graphic Design';
-
-  // --------------------------------------------------
-  // SELECTED IMAGE
-  // --------------------------------------------------
+export default function Illustrator() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+   // ==================================================
+  // ALWAYS OPEN PAGE FROM THE TOP
+  // ==================================================
 
-  // --------------------------------------------------
-  // TITLE SIZE
-  // --------------------------------------------------
-  const getTitleSize = () => {
-    if (pageTitle === 'Image Editing & Retouching') {
-      return 'clamp(1.35rem, 4.6vw, 72px)';
-    }
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto',
+    });
+  }, []);
 
-    if (pageTitle === 'Branding & Visual Design') {
-      return 'clamp(1.5rem, 5.2vw, 82px)';
-    }
+  // ==================================================
+  // PREVIOUS IMAGE
+  // ==================================================
 
-    if (pageTitle === 'Social Media Design') {
-      return 'clamp(1.7rem, 5.8vw, 92px)';
-    }
+  const showPreviousImage = () => {
+    if (selectedIndex === null) return;
 
-    if (pageTitle === 'Poster & Creative Design') {
-      return 'clamp(1.5rem, 5.2vw, 82px)';
-    }
-
-    if (pageTitle === 'Digital Content Design') {
-      return 'clamp(1.5rem, 5.2vw, 82px)';
-    }
-
-    if (pageTitle === 'Layout & Typography') {
-      return 'clamp(1.8rem, 6vw, 95px)';
-    }
-
-    return 'clamp(2.5rem, 9vw, 135px)';
+    setSelectedIndex(
+      selectedIndex === 0
+        ? WORK_IMAGES.length - 1
+        : selectedIndex - 1
+    );
   };
 
-  // --------------------------------------------------
+  // ==================================================
+  // NEXT IMAGE
+  // ==================================================
+
+  const showNextImage = () => {
+    if (selectedIndex === null) return;
+
+    setSelectedIndex(
+      selectedIndex === WORK_IMAGES.length - 1
+        ? 0
+        : selectedIndex + 1
+    );
+  };
+
+  // ==================================================
   // KEYBOARD NAVIGATION
-  // --------------------------------------------------
+  // ==================================================
+
   useEffect(() => {
     if (selectedIndex === null) return;
 
@@ -86,19 +75,26 @@ export default function GraphicDesignPage() {
         setSelectedIndex(null);
       }
 
-      // NEXT
-      if (event.key === 'ArrowRight') {
-        setSelectedIndex(
-          (selectedIndex + 1) % WORK_IMAGES.length
-        );
-      }
-
       // PREVIOUS
       if (event.key === 'ArrowLeft') {
-        setSelectedIndex(
-          (selectedIndex - 1 + WORK_IMAGES.length) %
-            WORK_IMAGES.length
-        );
+        setSelectedIndex((current) => {
+          if (current === null) return null;
+
+          return current === 0
+            ? WORK_IMAGES.length - 1
+            : current - 1;
+        });
+      }
+
+      // NEXT
+      if (event.key === 'ArrowRight') {
+        setSelectedIndex((current) => {
+          if (current === null) return null;
+
+          return current === WORK_IMAGES.length - 1
+            ? 0
+            : current + 1;
+        });
       }
     };
 
@@ -109,28 +105,21 @@ export default function GraphicDesignPage() {
     };
   }, [selectedIndex]);
 
-  // --------------------------------------------------
-  // PREVIOUS IMAGE
-  // --------------------------------------------------
-  const showPreviousImage = () => {
-    if (selectedIndex === null) return;
+  // ==================================================
+  // PREVENT BACKGROUND SCROLL
+  // ==================================================
 
-    setSelectedIndex(
-      (selectedIndex - 1 + WORK_IMAGES.length) %
-        WORK_IMAGES.length
-    );
-  };
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
 
-  // --------------------------------------------------
-  // NEXT IMAGE
-  // --------------------------------------------------
-  const showNextImage = () => {
-    if (selectedIndex === null) return;
-
-    setSelectedIndex(
-      (selectedIndex + 1) % WORK_IMAGES.length
-    );
-  };
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedIndex]);
 
   return (
     <div
@@ -139,38 +128,41 @@ export default function GraphicDesignPage() {
     >
 
       {/* ==================================================
-          TOP SECTION
+          HERO SECTION
       ================================================== */}
-      <section className="min-h-screen w-full relative">
+
+      <section className="relative min-h-screen w-full">
 
         {/* ==================================================
             NAVBAR
         ================================================== */}
+
         <nav
           className="
+            relative
+            z-20
             flex
             justify-between
             px-6
-            md:px-10
             pt-6
+            md:px-10
             md:pt-8
-            relative
-            z-20
           "
         >
+
           <a
             href="/#about"
             className="
-              text-[#D7E2EA]
+              text-sm
               font-medium
               uppercase
               tracking-wider
-              text-sm
-              md:text-lg
-              lg:text-[1.4rem]
-              hover:opacity-70
+              text-[#D7E2EA]
               transition-opacity
               duration-200
+              hover:opacity-70
+              md:text-lg
+              lg:text-[1.4rem]
             "
           >
             About
@@ -179,16 +171,16 @@ export default function GraphicDesignPage() {
           <a
             href="/#skills"
             className="
-              text-[#D7E2EA]
+              text-sm
               font-medium
               uppercase
               tracking-wider
-              text-sm
-              md:text-lg
-              lg:text-[1.4rem]
-              hover:opacity-70
+              text-[#D7E2EA]
               transition-opacity
               duration-200
+              hover:opacity-70
+              md:text-lg
+              lg:text-[1.4rem]
             "
           >
             Skills
@@ -197,16 +189,16 @@ export default function GraphicDesignPage() {
           <a
             href="/#projects"
             className="
-              text-[#D7E2EA]
+              text-sm
               font-medium
               uppercase
               tracking-wider
-              text-sm
-              md:text-lg
-              lg:text-[1.4rem]
-              hover:opacity-70
+              text-[#D7E2EA]
               transition-opacity
               duration-200
+              hover:opacity-70
+              md:text-lg
+              lg:text-[1.4rem]
             "
           >
             Projects
@@ -215,55 +207,59 @@ export default function GraphicDesignPage() {
           <a
             href="/#contact-area"
             className="
-              text-[#D7E2EA]
+              text-sm
               font-medium
               uppercase
               tracking-wider
-              text-sm
-              md:text-lg
-              lg:text-[1.4rem]
-              hover:opacity-70
+              text-[#D7E2EA]
               transition-opacity
               duration-200
+              hover:opacity-70
+              md:text-lg
+              lg:text-[1.4rem]
             "
           >
             Contact
           </a>
+
         </nav>
 
 
         {/* ==================================================
-            BIG TITLE
+            BIG HERO TITLE
         ================================================== */}
+
         <div
           className="
             flex
+            min-h-[80vh]
             items-center
             justify-center
-            min-h-[80vh]
+            overflow-hidden
             px-6
             md:px-10
-            overflow-hidden
           "
         >
+
           <h1
             className="
               hero-heading
+              w-full
+              whitespace-nowrap
+              text-center
               font-black
               uppercase
               leading-none
-              whitespace-nowrap
-              text-center
               text-[#D7E2EA]
-              w-full
             "
             style={{
-              fontSize: getTitleSize(),
+              fontSize: 'clamp(2.5rem, 9vw, 135px)',
               letterSpacing: '-0.035em',
             }}
           >
-            {pageTitle}
+            ILLUSTRATOR WORK
           </h1>
+
         </div>
 
       </section>
@@ -272,12 +268,13 @@ export default function GraphicDesignPage() {
       {/* ==================================================
           SELECTED WORK
       ================================================== */}
+
       <section
         className="
           px-5
+          pb-24
           sm:px-8
           md:px-10
-          pb-24
           md:pb-32
         "
       >
@@ -287,12 +284,13 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               SECTION TITLE
           ================================================== */}
+
           <h2
             className="
-              text-[#D7E2EA]
-              uppercase
-              font-bold
               mb-8
+              font-bold
+              uppercase
+              text-[#D7E2EA]
               md:mb-10
             "
             style={{
@@ -306,18 +304,19 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               MASONRY IMAGE GALLERY
 
-              - 4 columns desktop
-              - 2 columns mobile
-              - Original image proportions preserved
-              - No cropping
-              - No stretching
-              - 16px gap
+              Mobile  = 2 columns
+              Desktop = 4 columns
+
+              Original image proportions preserved.
+              No cropping.
+              No stretching.
           ================================================== */}
+
           <div
             className="
               columns-2
-              md:columns-4
               gap-3
+              md:columns-4
               md:gap-4
             "
           >
@@ -330,31 +329,31 @@ export default function GraphicDesignPage() {
                 className="
                   group
                   relative
+                  mb-3
+                  cursor-pointer
+                  break-inside-avoid
                   overflow-hidden
                   rounded-[10px]
-                  md:rounded-[12px]
-                  cursor-pointer
-                  mb-3
-                  md:mb-4
-                  break-inside-avoid
                   bg-[#151515]
+                  md:mb-4
+                  md:rounded-[12px]
                 "
               >
 
                 <img
                   src={image}
-                  alt={`${pageTitle} Work ${index + 1}`}
+                  alt={`Illustrator Work ${index + 1}`}
+                  loading="lazy"
                   className="
                     block
-                    w-full
                     h-auto
+                    w-full
                     object-contain
                     transition-transform
                     duration-500
                     ease-out
                     group-hover:scale-[1.03]
                   "
-                  loading="lazy"
                 />
 
               </div>
@@ -371,6 +370,7 @@ export default function GraphicDesignPage() {
       {/* ==================================================
           IMAGE LIGHTBOX
       ================================================== */}
+
       {selectedIndex !== null && (
 
         <div
@@ -393,32 +393,33 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               CLOSE BUTTON
           ================================================== */}
+
           <button
             type="button"
             onClick={() => setSelectedIndex(null)}
             className="
               fixed
-              top-5
               right-5
-              sm:top-8
-              sm:right-8
-              w-10
-              h-10
-              sm:w-12
-              sm:h-12
-              rounded-full
+              top-5
+              z-[1002]
               flex
+              h-10
+              w-10
               items-center
               justify-center
-              z-[1002]
-              bg-white/10
-              backdrop-blur-md
+              rounded-full
               border
               border-white/20
-              hover:bg-white/20
-              hover:scale-105
+              bg-white/10
+              backdrop-blur-md
               transition-all
               duration-200
+              hover:scale-105
+              hover:bg-white/20
+              sm:right-8
+              sm:top-8
+              sm:h-12
+              sm:w-12
             "
             aria-label="Close image preview"
           >
@@ -426,43 +427,41 @@ export default function GraphicDesignPage() {
             <span
               className="
                 relative
-                w-4
-                h-4
-                sm:w-5
-                sm:h-5
                 block
+                h-4
+                w-4
+                sm:h-5
+                sm:w-5
               "
             >
 
-              {/* X - Line 1 */}
               <span
                 className="
                   absolute
                   left-1/2
                   top-1/2
-                  w-full
                   h-[2px]
-                  bg-white
-                  rounded-full
+                  w-full
                   -translate-x-1/2
                   -translate-y-1/2
                   rotate-45
+                  rounded-full
+                  bg-white
                 "
               />
 
-              {/* X - Line 2 */}
               <span
                 className="
                   absolute
                   left-1/2
                   top-1/2
-                  w-full
                   h-[2px]
-                  bg-white
-                  rounded-full
+                  w-full
                   -translate-x-1/2
                   -translate-y-1/2
                   -rotate-45
+                  rounded-full
+                  bg-white
                 "
               />
 
@@ -474,38 +473,39 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               PREVIOUS BUTTON
           ================================================== */}
+
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               showPreviousImage();
             }}
             className="
               fixed
               left-3
-              sm:left-6
-              md:left-10
               top-1/2
-              -translate-y-1/2
               z-[1002]
-              w-12
-              h-12
-              sm:w-14
-              sm:h-14
-              md:w-16
-              md:h-16
-              rounded-full
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
               flex
+              h-12
+              w-12
+              -translate-y-1/2
               items-center
               justify-center
-              hover:bg-white/20
-              hover:scale-105
+              rounded-full
+              border
+              border-white/20
+              bg-white/10
+              backdrop-blur-md
               transition-all
               duration-200
+              hover:scale-105
+              hover:bg-white/20
+              sm:left-6
+              sm:h-14
+              sm:w-14
+              md:left-10
+              md:h-16
+              md:w-16
             "
             aria-label="Previous image"
           >
@@ -513,15 +513,15 @@ export default function GraphicDesignPage() {
             <span
               className="
                 block
-                w-3.5
                 h-3.5
-                sm:w-4
-                sm:h-4
-                border-l-2
-                border-b-2
-                border-white
-                rotate-45
+                w-3.5
                 translate-x-[2px]
+                rotate-45
+                border-b-2
+                border-l-2
+                border-white
+                sm:h-4
+                sm:w-4
               "
             />
 
@@ -531,15 +531,16 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               LIGHTBOX IMAGE
           ================================================== */}
+
           <img
             src={WORK_IMAGES[selectedIndex]}
-            alt={`${pageTitle} Preview ${selectedIndex + 1}`}
-            onClick={(e) => e.stopPropagation()}
+            alt={`Illustrator Preview ${selectedIndex + 1}`}
+            onClick={(event) => event.stopPropagation()}
             className="
-              max-w-[85vw]
               max-h-[88vh]
-              object-contain
+              max-w-[85vw]
               rounded-2xl
+              object-contain
             "
           />
 
@@ -547,38 +548,39 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               NEXT BUTTON
           ================================================== */}
+
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               showNextImage();
             }}
             className="
               fixed
               right-3
-              sm:right-6
-              md:right-10
               top-1/2
-              -translate-y-1/2
               z-[1002]
-              w-12
-              h-12
-              sm:w-14
-              sm:h-14
-              md:w-16
-              md:h-16
-              rounded-full
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
               flex
+              h-12
+              w-12
+              -translate-y-1/2
               items-center
               justify-center
-              hover:bg-white/20
-              hover:scale-105
+              rounded-full
+              border
+              border-white/20
+              bg-white/10
+              backdrop-blur-md
               transition-all
               duration-200
+              hover:scale-105
+              hover:bg-white/20
+              sm:right-6
+              sm:h-14
+              sm:w-14
+              md:right-10
+              md:h-16
+              md:w-16
             "
             aria-label="Next image"
           >
@@ -586,15 +588,15 @@ export default function GraphicDesignPage() {
             <span
               className="
                 block
-                w-3.5
                 h-3.5
-                sm:w-4
-                sm:h-4
+                w-3.5
+                -translate-x-[2px]
+                rotate-45
                 border-r-2
                 border-t-2
                 border-white
-                rotate-45
-                -translate-x-[2px]
+                sm:h-4
+                sm:w-4
               "
             />
 
@@ -604,19 +606,20 @@ export default function GraphicDesignPage() {
           {/* ==================================================
               IMAGE COUNTER
           ================================================== */}
+
           <div
             className="
               fixed
               bottom-5
-              sm:bottom-8
               left-1/2
-              -translate-x-1/2
               z-[1002]
-              text-white/80
+              -translate-x-1/2
               text-sm
-              sm:text-base
-              tracking-widest
               uppercase
+              tracking-widest
+              text-white/80
+              sm:bottom-8
+              sm:text-base
             "
           >
             {selectedIndex + 1} / {WORK_IMAGES.length}
