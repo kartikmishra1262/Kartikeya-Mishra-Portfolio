@@ -1,39 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const WORK_IMAGES = [
-  '/work/work1.jpg',
-  '/work/work2.jpg',
-  '/work/work3.jpg',
-  '/work/work4.jpg',
-  '/work/work5.jpg',
-  '/work/work6.jpg',
-  '/work/work7.jpg',
-  '/work/work8.jpg',
-  '/work/work9.jpg',
-  '/work/work10.jpg',
-  '/work/work11.jpg',
-  '/work/work12.jpg',
-  '/work/work13.jpg',
-  '/work/work14.jpg',
-  '/work/work15.jpg',
-  '/work/work16.jpg',
-  '/work/work17.jpg',
-  '/work/work18.jpg',
-  '/work/work19.jpg',
-  '/work/work20.jpg',
-  '/work/work21.jpg',
-  '/work/work22.jpg',
-  '/work/work23.jpg',
-  '/work/work24.jpg',
-  '/work/work25.jpg',
-  '/work/work26.jpg',
-  '/work/work27.jpg',
-  '/work/work28.jpg',
-  '/work/work29.jpg',
-  '/work/work30.jpg',
-  '/work/work31.jpg',
-  '/work/work32.jpg',
+const WORK_VIDEOS = [
+  {
+    id: 'N_IdzSZe-6k',
+    title: 'Video Work 01',
+    aspectRatio: '16 / 9',
+  },
+  {
+    id: '4FTD0CP7i1E',
+    title: 'Video Work 02',
+    aspectRatio: '16 / 9',
+  },
+  {
+    id: '1w7LyjWL1X8',
+    title: 'Video Work 03',
+    aspectRatio: '16 / 9',
+  },
+  {
+    id: 'h9GHKaQOEWc',
+    title: 'Video Work 04',
+    aspectRatio: '16 / 9',
+  },
+  {
+    id: 'mbQAGClnpXI',
+    title: 'Video Work 05',
+    aspectRatio: '16 / 9',
+  },
 ];
 
 const PAGE_TITLES: Record<string, string> = {
@@ -53,9 +46,6 @@ export default function GraphicDesignPage() {
   const pageTitle =
     PAGE_TITLES[skill || 'graphic-design'] || 'Graphic Design';
 
-  // --------------------------------------------------
-  // SELECTED IMAGE
-  // --------------------------------------------------
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   // --------------------------------------------------
@@ -90,6 +80,56 @@ export default function GraphicDesignPage() {
   };
 
   // --------------------------------------------------
+  // BROWSER BACK BUTTON / HISTORY
+  // --------------------------------------------------
+  useEffect(() => {
+    const handlePopState = () => {
+      // If a video is currently open, browser Back closes
+      // the lightbox instead of changing the page.
+      if (selectedIndex !== null) {
+        setSelectedIndex(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [selectedIndex]);
+
+  // --------------------------------------------------
+  // OPEN VIDEO
+  // --------------------------------------------------
+  const openVideo = (index: number) => {
+    setSelectedIndex(index);
+
+    // Add a temporary history entry for the lightbox.
+    // This allows the browser Back button to close the
+    // lightbox without leaving the current page.
+    window.history.pushState(
+      { videoLightbox: true },
+      '',
+      window.location.href
+    );
+  };
+
+  // --------------------------------------------------
+  // CLOSE VIDEO
+  // --------------------------------------------------
+  const closeVideo = () => {
+    if (selectedIndex === null) return;
+
+    // If the current history entry belongs to the lightbox,
+    // go back one step. The popstate listener will close it.
+    if (window.history.state?.videoLightbox) {
+      window.history.back();
+    } else {
+      setSelectedIndex(null);
+    }
+  };
+
+  // --------------------------------------------------
   // KEYBOARD NAVIGATION
   // --------------------------------------------------
   useEffect(() => {
@@ -98,21 +138,21 @@ export default function GraphicDesignPage() {
     const handleKeyDown = (event: KeyboardEvent) => {
       // CLOSE
       if (event.key === 'Escape') {
-        setSelectedIndex(null);
+        closeVideo();
       }
 
       // NEXT
       if (event.key === 'ArrowRight') {
         setSelectedIndex(
-          (selectedIndex + 1) % WORK_IMAGES.length
+          (selectedIndex + 1) % WORK_VIDEOS.length
         );
       }
 
       // PREVIOUS
       if (event.key === 'ArrowLeft') {
         setSelectedIndex(
-          (selectedIndex - 1 + WORK_IMAGES.length) %
-            WORK_IMAGES.length
+          (selectedIndex - 1 + WORK_VIDEOS.length) %
+            WORK_VIDEOS.length
         );
       }
     };
@@ -125,25 +165,25 @@ export default function GraphicDesignPage() {
   }, [selectedIndex]);
 
   // --------------------------------------------------
-  // PREVIOUS IMAGE
+  // PREVIOUS VIDEO
   // --------------------------------------------------
-  const showPreviousImage = () => {
+  const showPreviousVideo = () => {
     if (selectedIndex === null) return;
 
     setSelectedIndex(
-      (selectedIndex - 1 + WORK_IMAGES.length) %
-        WORK_IMAGES.length
+      (selectedIndex - 1 + WORK_VIDEOS.length) %
+        WORK_VIDEOS.length
     );
   };
 
   // --------------------------------------------------
-  // NEXT IMAGE
+  // NEXT VIDEO
   // --------------------------------------------------
-  const showNextImage = () => {
+  const showNextVideo = () => {
     if (selectedIndex === null) return;
 
     setSelectedIndex(
-      (selectedIndex + 1) % WORK_IMAGES.length
+      (selectedIndex + 1) % WORK_VIDEOS.length
     );
   };
 
@@ -152,7 +192,6 @@ export default function GraphicDesignPage() {
       className="min-h-screen w-full"
       style={{ backgroundColor: '#0C0C0C' }}
     >
-
       {/* ==================================================
           TOP SECTION
       ================================================== */}
@@ -246,7 +285,6 @@ export default function GraphicDesignPage() {
           </a>
         </nav>
 
-
         {/* ==================================================
             BIG TITLE
         ================================================== */}
@@ -280,9 +318,7 @@ export default function GraphicDesignPage() {
             {pageTitle}
           </h1>
         </div>
-
       </section>
-
 
       {/* ==================================================
           SELECTED WORK
@@ -296,7 +332,6 @@ export default function GraphicDesignPage() {
           md:pb-32
         "
       >
-
         <div className="w-full">
 
           {/* ==================================================
@@ -317,31 +352,22 @@ export default function GraphicDesignPage() {
             Selected Work
           </h2>
 
-
           {/* ==================================================
-              MASONRY IMAGE GALLERY
-
-              - 4 columns desktop
-              - 2 columns mobile
-              - Original image proportions preserved
-              - No cropping
-              - No stretching
-              - 16px gap
+              VIDEO GALLERY
           ================================================== */}
           <div
             className="
-              columns-2
-              md:columns-4
-              gap-3
-              md:gap-4
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              lg:grid-cols-4
+              gap-[20px]
             "
           >
-
-            {WORK_IMAGES.map((image, index) => (
-
+            {WORK_VIDEOS.map((video, index) => (
               <div
-                key={image}
-                onClick={() => setSelectedIndex(index)}
+                key={video.id}
+                onClick={() => openVideo(index)}
                 className="
                   group
                   relative
@@ -349,20 +375,29 @@ export default function GraphicDesignPage() {
                   rounded-[10px]
                   md:rounded-[12px]
                   cursor-pointer
-                  mb-3
-                  md:mb-4
-                  break-inside-avoid
                   bg-[#151515]
+                  border
+                  border-white/10
+                  w-full
+                  transition-transform
+                  duration-300
+                  hover:-translate-y-1
                 "
+                style={{
+                  aspectRatio: video.aspectRatio,
+                }}
               >
-
+                {/* ==================================================
+                    YOUTUBE THUMBNAIL
+                ================================================== */}
                 <img
-                  src={image}
-                  alt={`${pageTitle} Work ${index + 1}`}
+                  src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                  alt={`${pageTitle} ${video.title}`}
                   className="
-                    block
+                    absolute
+                    inset-0
                     w-full
-                    h-auto
+                    h-full
                     object-contain
                     transition-transform
                     duration-500
@@ -372,22 +407,104 @@ export default function GraphicDesignPage() {
                   loading="lazy"
                 />
 
+                {/* ==================================================
+                    DARK OVERLAY
+                ================================================== */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-black/25
+                    group-hover:bg-black/45
+                    transition-all
+                    duration-300
+                  "
+                />
+
+                {/* ==================================================
+                    PLAY BUTTON
+                ================================================== */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    flex
+                    items-center
+                    justify-center
+                  "
+                >
+                  <div
+                    className="
+                      w-14
+                      h-14
+                      md:w-16
+                      md:h-16
+                      rounded-full
+                      bg-white
+                      flex
+                      items-center
+                      justify-center
+                      shadow-2xl
+                      transition-all
+                      duration-300
+                      group-hover:scale-110
+                    "
+                  >
+                    <span
+                      className="
+                        ml-1
+                        w-0
+                        h-0
+                        border-t-[9px]
+                        border-t-transparent
+                        border-b-[9px]
+                        border-b-transparent
+                        border-l-[14px]
+                        border-l-[#0C0C0C]
+                      "
+                    />
+                  </div>
+                </div>
+
+                {/* ==================================================
+                    VIDEO TITLE
+                ================================================== */}
+                <div
+                  className="
+                    absolute
+                    bottom-0
+                    left-0
+                    right-0
+                    p-4
+                    md:p-5
+                    bg-gradient-to-t
+                    from-black/85
+                    to-transparent
+                  "
+                >
+                  <p
+                    className="
+                      text-white
+                      uppercase
+                      tracking-wider
+                      font-medium
+                      text-xs
+                      md:text-sm
+                    "
+                  >
+                    {video.title}
+                  </p>
+                </div>
               </div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
 
-
       {/* ==================================================
-          IMAGE LIGHTBOX
+          VIDEO LIGHTBOX
       ================================================== */}
       {selectedIndex !== null && (
-
         <div
           className="
             fixed
@@ -402,7 +519,7 @@ export default function GraphicDesignPage() {
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.94)',
           }}
-          onClick={() => setSelectedIndex(null)}
+          onClick={closeVideo}
         >
 
           {/* ==================================================
@@ -410,7 +527,10 @@ export default function GraphicDesignPage() {
           ================================================== */}
           <button
             type="button"
-            onClick={() => setSelectedIndex(null)}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeVideo();
+            }}
             className="
               fixed
               top-5
@@ -435,9 +555,8 @@ export default function GraphicDesignPage() {
               transition-all
               duration-200
             "
-            aria-label="Close image preview"
+            aria-label="Close video preview"
           >
-
             <span
               className="
                 relative
@@ -448,8 +567,6 @@ export default function GraphicDesignPage() {
                 block
               "
             >
-
-              {/* X - Line 1 */}
               <span
                 className="
                   absolute
@@ -465,7 +582,6 @@ export default function GraphicDesignPage() {
                 "
               />
 
-              {/* X - Line 2 */}
               <span
                 className="
                   absolute
@@ -480,144 +596,163 @@ export default function GraphicDesignPage() {
                   -rotate-45
                 "
               />
-
             </span>
-
           </button>
-
 
           {/* ==================================================
               PREVIOUS BUTTON
           ================================================== */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              showPreviousImage();
-            }}
-            className="
-              fixed
-              left-3
-              sm:left-6
-              md:left-10
-              top-1/2
-              -translate-y-1/2
-              z-[1002]
-              w-12
-              h-12
-              sm:w-14
-              sm:h-14
-              md:w-16
-              md:h-16
-              rounded-full
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
-              flex
-              items-center
-              justify-center
-              hover:bg-white/20
-              hover:scale-105
-              transition-all
-              duration-200
-            "
-            aria-label="Previous image"
-          >
-
-            <span
+          {WORK_VIDEOS.length > 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                showPreviousVideo();
+              }}
               className="
-                block
-                w-3.5
-                h-3.5
-                sm:w-4
-                sm:h-4
-                border-l-2
-                border-b-2
-                border-white
-                rotate-45
-                translate-x-[2px]
+                fixed
+                left-3
+                sm:left-6
+                md:left-10
+                top-1/2
+                -translate-y-1/2
+                z-[1002]
+                w-12
+                h-12
+                sm:w-14
+                sm:h-14
+                md:w-16
+                md:h-16
+                rounded-full
+                bg-white/10
+                backdrop-blur-md
+                border
+                border-white/20
+                flex
+                items-center
+                justify-center
+                hover:bg-white/20
+                hover:scale-105
+                transition-all
+                duration-200
               "
-            />
-
-          </button>
-
+              aria-label="Previous video"
+            >
+              <span
+                className="
+                  block
+                  w-3.5
+                  h-3.5
+                  sm:w-4
+                  sm:h-4
+                  border-l-2
+                  border-b-2
+                  border-white
+                  rotate-45
+                  translate-x-[2px]
+                "
+              />
+            </button>
+          )}
 
           {/* ==================================================
-              LIGHTBOX IMAGE
+              VIDEO PLAYER
           ================================================== */}
-          <img
-            src={WORK_IMAGES[selectedIndex]}
-            alt={`${pageTitle} Preview ${selectedIndex + 1}`}
-            onClick={(e) => e.stopPropagation()}
+          <div
             className="
-              max-w-[85vw]
-              max-h-[88vh]
-              object-contain
-              rounded-2xl
+              relative
+              w-full
+              max-w-6xl
+              aspect-video
+              rounded-xl
+              sm:rounded-2xl
+              overflow-hidden
+              bg-black
+              shadow-2xl
             "
-          />
-
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={`https://www.youtube.com/embed/${WORK_VIDEOS[selectedIndex].id}?rel=0&autoplay=1`}
+              title={WORK_VIDEOS[selectedIndex].title}
+              className="
+                absolute
+                inset-0
+                w-full
+                h-full
+              "
+              frameBorder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share
+              "
+              allowFullScreen
+            />
+          </div>
 
           {/* ==================================================
               NEXT BUTTON
           ================================================== */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              showNextImage();
-            }}
-            className="
-              fixed
-              right-3
-              sm:right-6
-              md:right-10
-              top-1/2
-              -translate-y-1/2
-              z-[1002]
-              w-12
-              h-12
-              sm:w-14
-              sm:h-14
-              md:w-16
-              md:h-16
-              rounded-full
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
-              flex
-              items-center
-              justify-center
-              hover:bg-white/20
-              hover:scale-105
-              transition-all
-              duration-200
-            "
-            aria-label="Next image"
-          >
-
-            <span
+          {WORK_VIDEOS.length > 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                showNextVideo();
+              }}
               className="
-                block
-                w-3.5
-                h-3.5
-                sm:w-4
-                sm:h-4
-                border-r-2
-                border-t-2
-                border-white
-                rotate-45
-                -translate-x-[2px]
+                fixed
+                right-3
+                sm:right-6
+                md:right-10
+                top-1/2
+                -translate-y-1/2
+                z-[1002]
+                w-12
+                h-12
+                sm:w-14
+                sm:h-14
+                md:w-16
+                md:h-16
+                rounded-full
+                bg-white/10
+                backdrop-blur-md
+                border
+                border-white/20
+                flex
+                items-center
+                justify-center
+                hover:bg-white/20
+                hover:scale-105
+                transition-all
+                duration-200
               "
-            />
-
-          </button>
-
+              aria-label="Next video"
+            >
+              <span
+                className="
+                  block
+                  w-3.5
+                  h-3.5
+                  sm:w-4
+                  sm:h-4
+                  border-r-2
+                  border-t-2
+                  border-white
+                  rotate-45
+                  -translate-x-[2px]
+                "
+              />
+            </button>
+          )}
 
           {/* ==================================================
-              IMAGE COUNTER
+              VIDEO COUNTER
           ================================================== */}
           <div
             className="
@@ -634,13 +769,10 @@ export default function GraphicDesignPage() {
               uppercase
             "
           >
-            {selectedIndex + 1} / {WORK_IMAGES.length}
+            {selectedIndex + 1} / {WORK_VIDEOS.length}
           </div>
-
         </div>
-
       )}
-
     </div>
   );
 }
