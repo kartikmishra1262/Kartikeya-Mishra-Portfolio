@@ -29,16 +29,20 @@ const ROW_2 = [
 
 function Tile({ src, alt }: { src: string; alt: string }) {
   return (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      className="rounded-2xl object-cover flex-shrink-0"
-      style={{
-        width: '420px',
-        height: '270px',
-      }}
-    />
+    <div className="flex-shrink-0 overflow-hidden rounded-2xl">
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className="block rounded-2xl"
+        style={{
+          height: 'clamp(160px, 22vw, 270px)',
+          width: 'auto',
+          maxWidth: 'none',
+          objectFit: 'contain',
+        }}
+      />
+    </div>
   );
 }
 
@@ -47,30 +51,66 @@ export default function MarqueeSection() {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const section = sectionRef.current;
+      if (ticking) return;
 
-      if (!section) return;
+      ticking = true;
 
-      const sectionTop =
-        section.getBoundingClientRect().top + window.scrollY;
+      requestAnimationFrame(() => {
+        const section = sectionRef.current;
 
-      const value =
-        (window.scrollY - sectionTop + window.innerHeight) * 0.3;
+        if (!section) {
+          ticking = false;
+          return;
+        }
 
-      setOffset(value);
+        const sectionTop =
+          section.getBoundingClientRect().top + window.scrollY;
+
+        const viewportWidth = window.innerWidth;
+
+        // Responsive marquee movement speed
+        let speed: number;
+
+        if (viewportWidth < 640) {
+          // Mobile
+          speed = 0.18;
+        } else if (viewportWidth < 1024) {
+          // Tablet
+          speed = 0.24;
+        } else {
+          // Desktop
+          speed = 0.30;
+        }
+
+        const value =
+          (window.scrollY - sectionTop + window.innerHeight) * speed;
+
+        setOffset(value);
+
+        ticking = false;
+      });
     };
 
+    // Initial calculation
     handleScroll();
 
     window.addEventListener('scroll', handleScroll, {
       passive: true,
     });
 
+    window.addEventListener('resize', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, []);
+
+  // Responsive starting offset
+  const initialOffset = 'clamp(80px, 15vw, 200px)';
 
   return (
     <section
@@ -80,11 +120,13 @@ export default function MarqueeSection() {
         background: '#0C0C0C',
       }}
     >
-      {/* TOP ROW */}
+      {/* =========================
+          TOP ROW
+      ========================== */}
       <div
-        className="flex gap-3"
+        className="flex gap-3 items-start"
         style={{
-          transform: `translateX(${offset - 200}px)`,
+          transform: `translateX(calc(${offset}px - ${initialOffset}))`,
           willChange: 'transform',
         }}
       >
@@ -97,11 +139,13 @@ export default function MarqueeSection() {
         ))}
       </div>
 
-      {/* BOTTOM ROW */}
+      {/* =========================
+          BOTTOM ROW
+      ========================== */}
       <div
-        className="flex gap-3"
+        className="flex gap-3 items-start"
         style={{
-          transform: `translateX(${-(offset - 200)}px)`,
+          transform: `translateX(calc(-${offset}px + ${initialOffset}))`,
           willChange: 'transform',
         }}
       >
