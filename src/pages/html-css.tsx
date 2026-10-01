@@ -1,150 +1,33 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const WORK_IMAGES = [
-  '/work/work1.jpg',
-  '/work/work2.jpg',
-  '/work/work3.jpg',
-  '/work/work4.jpg',
-  '/work/work5.jpg',
-  '/work/work6.jpg',
-  '/work/work7.jpg',
-  '/work/work8.jpg',
-  '/work/work9.jpg',
-  '/work/work10.jpg',
-  '/work/work11.jpg',
-  '/work/work12.jpg',
-  '/work/work13.jpg',
-  '/work/work14.jpg',
-  '/work/work15.jpg',
-  '/work/work16.jpg',
-  '/work/work17.jpg',
-  '/work/work18.jpg',
-  '/work/work19.jpg',
-  '/work/work20.jpg',
-  '/work/work21.jpg',
-  '/work/work22.jpg',
-  '/work/work23.jpg',
-  '/work/work24.jpg',
-  '/work/work25.jpg',
-  '/work/work26.jpg',
-  '/work/work27.jpg',
-  '/work/work28.jpg',
-  '/work/work29.jpg',
-  '/work/work30.jpg',
-  '/work/work31.jpg',
-  '/work/work32.jpg',
-];
-
 const PAGE_TITLES: Record<string, string> = {
-  'graphic-design': 'Graphic Design',
-  'ui-design': 'UI Design',
-  'social-media-design': 'Social Media Design',
-  'poster-creative-design': 'Poster & Creative Design',
-  'branding-visual-design': 'Branding & Visual Design',
-  'image-editing-retouching': 'Image Editing & Retouching',
-  'layout-typography': 'Layout & Typography',
-  'digital-content-design': 'Digital Content Design',
+  'html-css': 'HTML & CSS',
 };
 
-export default function GraphicDesignPage() {
+const HTML_PROJECTS = [
+  {
+    title: 'MONO',
+    description: 'Creative Design Agency — HTML & CSS',
+    url: '/Projects/Mono/mono.html',
+  },
+  {
+    title: 'VERVE',
+    description: 'Creative Website — HTML & CSS',
+    url: '/Projects/verve/verve.html',
+  },
+];
+
+export default function HtmlCssPage() {
   const { skill } = useParams();
 
   const pageTitle =
-    PAGE_TITLES[skill || 'graphic-design'] || 'Graphic Design';
+    PAGE_TITLES[skill || 'html-css'] || 'HTML & CSS';
 
-  // --------------------------------------------------
-  // SELECTED IMAGE
-  // --------------------------------------------------
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
-  // --------------------------------------------------
+  // ==================================================
   // TITLE SIZE
-  // --------------------------------------------------
+  // ==================================================
   const getTitleSize = () => {
-    if (pageTitle === 'Image Editing & Retouching') {
-      return 'clamp(1.35rem, 4.6vw, 72px)';
-    }
-
-    if (pageTitle === 'Branding & Visual Design') {
-      return 'clamp(1.5rem, 5.2vw, 82px)';
-    }
-
-    if (pageTitle === 'Social Media Design') {
-      return 'clamp(1.7rem, 5.8vw, 92px)';
-    }
-
-    if (pageTitle === 'Poster & Creative Design') {
-      return 'clamp(1.5rem, 5.2vw, 82px)';
-    }
-
-    if (pageTitle === 'Digital Content Design') {
-      return 'clamp(1.5rem, 5.2vw, 82px)';
-    }
-
-    if (pageTitle === 'Layout & Typography') {
-      return 'clamp(1.8rem, 6vw, 95px)';
-    }
-
-    return 'clamp(2.5rem, 9vw, 135px)';
-  };
-
-  // --------------------------------------------------
-  // KEYBOARD NAVIGATION
-  // --------------------------------------------------
-  useEffect(() => {
-    if (selectedIndex === null) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // CLOSE
-      if (event.key === 'Escape') {
-        setSelectedIndex(null);
-      }
-
-      // NEXT
-      if (event.key === 'ArrowRight') {
-        setSelectedIndex(
-          (selectedIndex + 1) % WORK_IMAGES.length
-        );
-      }
-
-      // PREVIOUS
-      if (event.key === 'ArrowLeft') {
-        setSelectedIndex(
-          (selectedIndex - 1 + WORK_IMAGES.length) %
-            WORK_IMAGES.length
-        );
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedIndex]);
-
-  // --------------------------------------------------
-  // PREVIOUS IMAGE
-  // --------------------------------------------------
-  const showPreviousImage = () => {
-    if (selectedIndex === null) return;
-
-    setSelectedIndex(
-      (selectedIndex - 1 + WORK_IMAGES.length) %
-        WORK_IMAGES.length
-    );
-  };
-
-  // --------------------------------------------------
-  // NEXT IMAGE
-  // --------------------------------------------------
-  const showNextImage = () => {
-    if (selectedIndex === null) return;
-
-    setSelectedIndex(
-      (selectedIndex + 1) % WORK_IMAGES.length
-    );
+    return 'clamp(3rem, 10vw, 135px)';
   };
 
   return (
@@ -319,60 +202,281 @@ export default function GraphicDesignPage() {
 
 
           {/* ==================================================
-              MASONRY IMAGE GALLERY
-
-              - 4 columns desktop
-              - 2 columns mobile
-              - Original image proportions preserved
-              - No cropping
-              - No stretching
-              - 16px gap
+              PROJECT GRID
           ================================================== */}
           <div
             className="
-              columns-2
-              md:columns-4
-              gap-3
-              md:gap-4
+              grid
+              grid-cols-1
+              lg:grid-cols-2
+              gap-6
+              md:gap-8
             "
           >
 
-            {WORK_IMAGES.map((image, index) => (
+            {HTML_PROJECTS.map((project) => (
 
-              <div
-                key={image}
-                onClick={() => setSelectedIndex(index)}
+              <a
+                key={project.title}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="
                   group
-                  relative
+                  block
+                  w-full
+                  rounded-2xl
                   overflow-hidden
-                  rounded-[10px]
-                  md:rounded-[12px]
-                  cursor-pointer
-                  mb-3
-                  md:mb-4
-                  break-inside-avoid
                   bg-[#151515]
+                  border
+                  border-white/10
+                  hover:border-white/25
+                  transition-all
+                  duration-300
+                  cursor-pointer
                 "
+                aria-label={`Open ${project.title} project`}
               >
 
-                <img
-                  src={image}
-                  alt={`${pageTitle} Work ${index + 1}`}
+                {/* ==================================================
+                    LIVE WEBSITE PREVIEW
+                ================================================== */}
+                <div
                   className="
-                    block
+                    relative
                     w-full
-                    h-auto
-                    object-contain
-                    transition-transform
-                    duration-500
-                    ease-out
-                    group-hover:scale-[1.03]
+                    aspect-[16/10]
+                    overflow-hidden
+                    bg-[#ECEDEF]
                   "
-                  loading="lazy"
-                />
+                >
 
-              </div>
+                  {/* ==================================================
+                      BROWSER TOP BAR
+                  ================================================== */}
+                  <div
+                    className="
+                      absolute
+                      top-0
+                      left-0
+                      right-0
+                      h-8
+                      md:h-10
+                      z-30
+                      bg-[#1A1A1A]
+                      flex
+                      items-center
+                      px-3
+                      md:px-4
+                      gap-1.5
+                      md:gap-2
+                    "
+                  >
+
+                    {/* Browser dots */}
+                    <span
+                      className="
+                        w-2
+                        h-2
+                        md:w-2.5
+                        md:h-2.5
+                        rounded-full
+                        bg-[#555]
+                      "
+                    />
+
+                    <span
+                      className="
+                        w-2
+                        h-2
+                        md:w-2.5
+                        md:h-2.5
+                        rounded-full
+                        bg-[#555]
+                      "
+                    />
+
+                    <span
+                      className="
+                        w-2
+                        h-2
+                        md:w-2.5
+                        md:h-2.5
+                        rounded-full
+                        bg-[#555]
+                      "
+                    />
+
+                    {/* Fake URL */}
+                    <div
+                      className="
+                        ml-3
+                        md:ml-5
+                        h-5
+                        md:h-6
+                        flex-1
+                        rounded-md
+                        bg-[#2A2A2A]
+                        flex
+                        items-center
+                        px-3
+                      "
+                    >
+                      <span
+                        className="
+                          text-[8px]
+                          md:text-[10px]
+                          text-white/40
+                          truncate
+                        "
+                      >
+                        {project.url}
+                      </span>
+                    </div>
+
+                  </div>
+
+
+                  {/* ==================================================
+                      ACTUAL HTML WEBSITE
+                  ================================================== */}
+                  <iframe
+                    src={project.url}
+                    title={`${project.title} Website Preview`}
+                    className="
+                      absolute
+                      left-0
+                      top-8
+                      md:top-10
+                      w-full
+                      h-[calc(100%_-_2rem)]
+                      md:h-[calc(100%_-_2.5rem)]
+                      border-0
+                      pointer-events-none
+                      bg-white
+                      transition-transform
+                      duration-700
+                      ease-out
+                      group-hover:scale-[1.015]
+                    "
+                    loading="lazy"
+                  />
+
+
+                  {/* ==================================================
+                      HOVER OVERLAY
+                  ================================================== */}
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      z-20
+                      flex
+                      items-center
+                      justify-center
+                      bg-black/0
+                      group-hover:bg-black/35
+                      transition-all
+                      duration-300
+                    "
+                  >
+
+                    <div
+                      className="
+                        opacity-0
+                        group-hover:opacity-100
+                        translate-y-3
+                        group-hover:translate-y-0
+                        transition-all
+                        duration-300
+                        bg-white
+                        text-black
+                        px-5
+                        md:px-6
+                        py-2.5
+                        md:py-3
+                        rounded-full
+                        font-semibold
+                        uppercase
+                        tracking-wider
+                        text-xs
+                        md:text-sm
+                        shadow-2xl
+                      "
+                    >
+                      Open Project →
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* ==================================================
+                    PROJECT INFORMATION
+                ================================================== */}
+                <div
+                  className="
+                    flex
+                    flex-col
+                    sm:flex-row
+                    sm:items-center
+                    sm:justify-between
+                    gap-3
+                    px-5
+                    py-5
+                    md:px-7
+                    md:py-6
+                  "
+                >
+
+                  <div>
+
+                    <h3
+                      className="
+                        text-[#D7E2EA]
+                        text-2xl
+                        md:text-3xl
+                        font-bold
+                        uppercase
+                        tracking-tight
+                      "
+                    >
+                      {project.title}
+                    </h3>
+
+                    <p
+                      className="
+                        text-white/50
+                        mt-1
+                        text-sm
+                        md:text-base
+                      "
+                    >
+                      {project.description}
+                    </p>
+
+                  </div>
+
+
+                  <span
+                    className="
+                      text-[#D7E2EA]
+                      text-sm
+                      md:text-base
+                      uppercase
+                      tracking-wider
+                      font-medium
+                      group-hover:text-white
+                      transition-colors
+                    "
+                  >
+                    View Website →
+                  </span>
+
+                </div>
+
+              </a>
 
             ))}
 
@@ -381,265 +485,6 @@ export default function GraphicDesignPage() {
         </div>
 
       </section>
-
-
-      {/* ==================================================
-          IMAGE LIGHTBOX
-      ================================================== */}
-      {selectedIndex !== null && (
-
-        <div
-          className="
-            fixed
-            inset-0
-            z-[999]
-            flex
-            items-center
-            justify-center
-            p-4
-            sm:p-8
-          "
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.94)',
-          }}
-          onClick={() => setSelectedIndex(null)}
-        >
-
-          {/* ==================================================
-              CLOSE BUTTON
-          ================================================== */}
-          <button
-            type="button"
-            onClick={() => setSelectedIndex(null)}
-            className="
-              fixed
-              top-5
-              right-5
-              sm:top-8
-              sm:right-8
-              w-10
-              h-10
-              sm:w-12
-              sm:h-12
-              rounded-full
-              flex
-              items-center
-              justify-center
-              z-[1002]
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
-              hover:bg-white/20
-              hover:scale-105
-              transition-all
-              duration-200
-            "
-            aria-label="Close image preview"
-          >
-
-            <span
-              className="
-                relative
-                w-4
-                h-4
-                sm:w-5
-                sm:h-5
-                block
-              "
-            >
-
-              {/* X - Line 1 */}
-              <span
-                className="
-                  absolute
-                  left-1/2
-                  top-1/2
-                  w-full
-                  h-[2px]
-                  bg-white
-                  rounded-full
-                  -translate-x-1/2
-                  -translate-y-1/2
-                  rotate-45
-                "
-              />
-
-              {/* X - Line 2 */}
-              <span
-                className="
-                  absolute
-                  left-1/2
-                  top-1/2
-                  w-full
-                  h-[2px]
-                  bg-white
-                  rounded-full
-                  -translate-x-1/2
-                  -translate-y-1/2
-                  -rotate-45
-                "
-              />
-
-            </span>
-
-          </button>
-
-
-          {/* ==================================================
-              PREVIOUS BUTTON
-          ================================================== */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              showPreviousImage();
-            }}
-            className="
-              fixed
-              left-3
-              sm:left-6
-              md:left-10
-              top-1/2
-              -translate-y-1/2
-              z-[1002]
-              w-12
-              h-12
-              sm:w-14
-              sm:h-14
-              md:w-16
-              md:h-16
-              rounded-full
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
-              flex
-              items-center
-              justify-center
-              hover:bg-white/20
-              hover:scale-105
-              transition-all
-              duration-200
-            "
-            aria-label="Previous image"
-          >
-
-            <span
-              className="
-                block
-                w-3.5
-                h-3.5
-                sm:w-4
-                sm:h-4
-                border-l-2
-                border-b-2
-                border-white
-                rotate-45
-                translate-x-[2px]
-              "
-            />
-
-          </button>
-
-
-          {/* ==================================================
-              LIGHTBOX IMAGE
-          ================================================== */}
-          <img
-            src={WORK_IMAGES[selectedIndex]}
-            alt={`${pageTitle} Preview ${selectedIndex + 1}`}
-            onClick={(e) => e.stopPropagation()}
-            className="
-              max-w-[85vw]
-              max-h-[88vh]
-              object-contain
-              rounded-2xl
-            "
-          />
-
-
-          {/* ==================================================
-              NEXT BUTTON
-          ================================================== */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              showNextImage();
-            }}
-            className="
-              fixed
-              right-3
-              sm:right-6
-              md:right-10
-              top-1/2
-              -translate-y-1/2
-              z-[1002]
-              w-12
-              h-12
-              sm:w-14
-              sm:h-14
-              md:w-16
-              md:h-16
-              rounded-full
-              bg-white/10
-              backdrop-blur-md
-              border
-              border-white/20
-              flex
-              items-center
-              justify-center
-              hover:bg-white/20
-              hover:scale-105
-              transition-all
-              duration-200
-            "
-            aria-label="Next image"
-          >
-
-            <span
-              className="
-                block
-                w-3.5
-                h-3.5
-                sm:w-4
-                sm:h-4
-                border-r-2
-                border-t-2
-                border-white
-                rotate-45
-                -translate-x-[2px]
-              "
-            />
-
-          </button>
-
-
-          {/* ==================================================
-              IMAGE COUNTER
-          ================================================== */}
-          <div
-            className="
-              fixed
-              bottom-5
-              sm:bottom-8
-              left-1/2
-              -translate-x-1/2
-              z-[1002]
-              text-white/80
-              text-sm
-              sm:text-base
-              tracking-widest
-              uppercase
-            "
-          >
-            {selectedIndex + 1} / {WORK_IMAGES.length}
-          </div>
-
-        </div>
-
-      )}
 
     </div>
   );

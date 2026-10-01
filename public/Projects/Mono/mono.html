@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MONO — Creative Design Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ECEDEF; --panel:#F8F8F9; --ink:#15171C; --mute:#575C67; --line:#C6C9D0; --accent:#2F3DFF; --on-accent:#fff;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --gutter:clamp(1.25rem,4vw,3.5rem);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#12141A;--panel:#1A1D25;--ink:#ECEDEF;--mute:#9AA0AC;--line:#2B2F39;--accent:#7C86FF;--on-accent:#12141A}
+}
+:root[data-theme="dark"]{--paper:#12141A;--panel:#1A1D25;--ink:#ECEDEF;--mute:#9AA0AC;--line:#2B2F39;--accent:#7C86FF;--on-accent:#12141A}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.05rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{padding-inline:var(--gutter);max-width:90rem;margin-inline:auto}
+section{padding-block:clamp(4.5rem,10vw,9rem)}
+.section-head{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;margin-bottom:clamp(2.5rem,5vw,4.5rem)}
+.section-head h2{grid-column:1/-1;font-size:clamp(2.2rem,6vw,5rem);font-weight:800;letter-spacing:-.03em;max-width:16ch}
+
+/* NAV */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:4.25rem}
+.logo{font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:-.04em;text-decoration:none}
+.links{display:flex;gap:2rem;list-style:none;margin:0;padding:0;align-items:center}
+.links a{text-decoration:none;font-weight:500;position:relative;padding-block:.3rem}
+.links a:not(.pill)::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.links a:not(.pill):hover::after{transform:scaleX(1);transform-origin:left}
+.pill{background:var(--ink);color:var(--paper);padding:.55rem 1.1rem !important;border-radius:99px;transition:background .25s,color .25s}
+.pill:hover{background:var(--accent);color:var(--on-accent)}
+#menu,.burger{display:none}
+.burger{cursor:pointer;width:2.75rem;height:2.75rem;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+.burger span{display:block;width:26px;height:2px;background:var(--ink);transition:transform .3s,opacity .3s}
+#menu:checked~.burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+#menu:checked~.burger span:nth-child(2){opacity:0}
+#menu:checked~.burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+#menu:focus-visible~.burger{outline:3px solid var(--accent)}
+
+/* HERO */
+.hero{min-height:calc(100svh - 4.25rem);display:flex;flex-direction:column;justify-content:space-between;padding-block:clamp(2rem,5vw,4rem) clamp(2rem,4vw,3.5rem)}
+.hero h1{font-size:clamp(3.4rem,15.5vw,14rem);font-weight:800;letter-spacing:-.05em;line-height:.86;margin-top:clamp(2rem,6vw,5rem)}
+.hero h1 span{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 span>i{display:block;font-style:normal;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 span:nth-child(2)>i{color:transparent;-webkit-text-stroke:clamp(1.5px,.25vw,3px) var(--ink);animation-delay:.12s}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.hero-foot{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;justify-content:space-between;align-items:flex-end;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.disciplines{font-size:1.15rem;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;gap:.9rem;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:500;letter-spacing:.06em;padding:1.1rem 1.8rem;border-radius:99px;transition:transform .25s,gap .25s,background .25s}
+.btn:hover{gap:1.4rem;transform:translateY(-2px)}
+.btn svg{width:1.1em;height:1.1em}
+
+/* ABOUT */
+.about{border-top:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2rem}
+.about h2{grid-column:1/-1;font-size:clamp(1.9rem,4.6vw,4rem);font-weight:700;letter-spacing:-.03em;line-height:1.08;max-width:22ch}
+.about .copy{grid-column:7/-1;color:var(--mute);margin-top:1.5rem;max-width:34rem}
+.stats{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:2rem 4rem;margin-top:3rem}
+.stats div{font-size:.95rem;color:var(--mute)}
+.stats strong{display:block;font-family:var(--display);font-size:clamp(2.4rem,5vw,3.6rem);color:var(--ink);letter-spacing:-.04em;line-height:1}
+
+/* SERVICES */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15.5rem,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--paper);padding:clamp(1.5rem,2.5vw,2.25rem);min-height:20rem;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s,color .3s}
+.card .n{font-family:var(--display);font-weight:700;color:var(--accent);transition:color .3s}
+.card h3{font-size:clamp(1.7rem,2.6vw,2.3rem);font-weight:700;letter-spacing:-.03em;margin-bottom:.8rem}
+.card p{color:var(--mute);font-size:.98rem;transition:color .3s}
+.card:hover{background:var(--accent);color:var(--on-accent)}
+.card:hover .n,.card:hover p{color:var(--on-accent)}
+
+/* WORK */
+.work{background:var(--panel);border-block:1px solid var(--line)}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1rem,2vw,1.75rem)}
+.piece{grid-column:span 6;margin:0}
+.piece:nth-child(1){grid-column:span 7}.piece:nth-child(2){grid-column:span 5}
+.piece:nth-child(3){grid-column:span 5}.piece:nth-child(4){grid-column:span 7}
+.art{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:6px;isolation:isolate}
+.art>*{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.piece:hover .art>*{transform:scale(1.06) rotate(-1deg)}
+.piece:hover .art>.still{transform:none}
+.piece figcaption{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;padding-top:1rem}
+.piece h3{font-size:1.6rem;font-weight:700;letter-spacing:-.03em}
+.piece figcaption span{color:var(--mute);font-size:.95rem}
+.a1{background:#0E0E10}
+.a1 b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:clamp(3rem,10vw,8rem);letter-spacing:.08em;color:#F2EFE9}
+.a1 u{position:absolute;width:42%;aspect-ratio:1;border:1px solid #F2EFE9;border-radius:50%;right:-8%;bottom:-18%;opacity:.5}
+.a2{background:#FFD23F;display:grid;grid-template-columns:repeat(3,1fr);gap:6%;padding:7%}
+.a2 i{border-radius:10px;background:#1B1B1B}
+.a2 i:nth-child(2){background:#E8473C}.a2 i:nth-child(3){background:#fff;border-radius:50%}
+.a2 i:nth-child(4){background:#fff}.a2 i:nth-child(5){background:#2F3DFF;border-radius:50% 50% 10px 10px}.a2 i:nth-child(6){background:#1B1B1B;border-radius:50%}
+.a3{background:#D9D5CC}
+.a3 i{position:absolute;width:34%;height:74%;top:13%;border-radius:3px;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.a3 i:nth-child(1){left:12%;background:#2F3DFF;transform:rotate(-8deg)}
+.a3 i:nth-child(2){left:33%;background:#F25C2A;transform:rotate(3deg)}
+.a3 i:nth-child(3){left:54%;background:#15171C;transform:rotate(11deg)}
+.a4{background:linear-gradient(135deg,#C9D2FF,#EAD9FF)}
+.a4 .ui{position:absolute;inset:12% 18%;background:#fff;border-radius:16px;box-shadow:0 20px 40px rgba(30,30,80,.2);padding:6%;display:flex;flex-direction:column;gap:7%}
+.a4 .ui i{display:block;height:10%;border-radius:99px;background:#E4E6F0}
+.a4 .ui i:nth-child(1){width:45%;background:#15171C}
+.a4 .ui i:nth-child(2){width:80%}
+.a4 .ui i:nth-child(3){width:65%}
+.a4 .ui i:nth-child(4){height:20%;width:100%;border-radius:10px;background:#2F3DFF}
+
+/* PROCESS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:2rem;counter-reset:s;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:1.25rem;transition:border-color .3s}
+.steps li:hover{border-color:var(--accent)}
+.steps li::before{content:"0" counter(s);font-family:var(--display);font-weight:700;color:var(--accent)}
+.steps h3{font-size:1.9rem;font-weight:700;letter-spacing:-.03em;margin:2.5rem 0 .6rem}
+.steps p{color:var(--mute);font-size:.98rem}
+
+/* CLIENTS */
+.clients{padding-block:clamp(3rem,6vw,5rem);border-block:1px solid var(--line)}
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1.5rem 2rem;list-style:none;margin:0;padding:0;align-items:center}
+.logos li{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,2.6vw,2rem);letter-spacing:-.03em;color:var(--mute);transition:color .25s;text-align:center}
+.logos li:hover{color:var(--ink)}
+.logos li:nth-child(even){font-weight:400;letter-spacing:.06em}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2.5rem 2rem}
+.contact h2{grid-column:1/8;font-size:clamp(2.6rem,9vw,8rem);font-weight:800;letter-spacing:-.05em;line-height:.9}
+.contact .side{grid-column:9/-1;align-self:end;display:grid;gap:.4rem}
+.mail{font-family:var(--display);font-size:clamp(1.3rem,2.4vw,1.8rem);font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent);justify-self:start;transition:color .2s}
+.mail:hover{color:var(--accent)}
+.contact form{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.5rem;margin-top:2rem}
+.field{display:grid;gap:.35rem}
+.field.wide{grid-column:1/-1}
+label{font-size:.9rem;color:var(--mute)}
+input,textarea{font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px solid var(--ink);padding:.7rem 0;border-radius:0;width:100%;transition:border-color .2s}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 2px 0 var(--accent)}
+textarea{min-height:7rem;resize:vertical}
+button.btn{border:0;font:inherit;font-weight:500;letter-spacing:.06em;cursor:pointer;justify-self:start}
+footer{border-top:1px solid var(--line);padding-block:1.75rem;color:var(--mute);font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem}
+
+/* RESPONSIVE */
+@media (max-width:860px){
+  .burger{display:flex}
+  .links{position:absolute;top:100%;left:0;right:0;background:var(--paper);flex-direction:column;align-items:flex-start;gap:0;padding:0 var(--gutter);max-height:0;overflow:hidden;border-bottom:1px solid transparent;transition:max-height .4s,border-color .4s}
+  .links li{width:100%}
+  .links a{display:block;padding:1rem 0;font-size:1.3rem;font-family:var(--display);font-weight:700}
+  .links .pill{display:inline-block;margin:.5rem 0 1.5rem;font-size:1rem}
+  #menu:checked~.links{max-height:30rem;border-color:var(--line)}
+  .about .copy{grid-column:1/-1}
+  .piece,.piece:nth-child(n){grid-column:1/-1}
+  .contact h2,.contact .side{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap" aria-label="Main">
+    <a class="logo" href="#top">MONO</a>
+    <input type="checkbox" id="menu" aria-label="Toggle menu">
+    <label class="burger" for="menu" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a class="pill" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <h1 aria-label="We create visual impact.">
+      <span aria-hidden="true"><i>WE CREATE</i></span>
+      <span aria-hidden="true"><i>VISUAL IMPACT.</i></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="disciplines">Branding / Digital / UI / Motion</p>
+      <a class="btn" href="#work">VIEW OUR WORK
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <h2>MONO is a small design studio making brands, interfaces and motion that people remember.</h2>
+      <p class="copy">We work with founders, cultural projects and product teams who want a sharper identity. One senior team, one clear idea, and everything built to work across print, screen and feed.</p>
+      <div class="stats">
+        <div><strong>60+</strong>projects shipped</div>
+        <div><strong>12</strong>countries reached</div>
+        <div><strong>7 yrs</strong>in practice</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head"><h2>What we do</h2></div>
+      <div class="cards">
+        <article class="card"><span class="n">01</span><div><h3>Brand Identity</h3><p>Logos, type systems and guidelines that make a name feel like a place.</p></div></article>
+        <article class="card"><span class="n">02</span><div><h3>UI / UX Design</h3><p>Websites and apps designed around how people actually use them.</p></div></article>
+        <article class="card"><span class="n">03</span><div><h3>Social Media</h3><p>Content systems and templates that keep a feed consistent and recognisable.</p></div></article>
+        <article class="card"><span class="n">04</span><div><h3>Motion Design</h3><p>Logo animations, title sequences and short films that move with intent.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="wrap">
+      <div class="section-head"><h2>Selected work</h2></div>
+      <div class="gallery">
+        <figure class="piece">
+          <div class="art a1" role="img" aria-label="NOIRÉ wordmark in light type on black"><u></u><b>NOIRÉ</b></div>
+          <figcaption><h3>NOIRÉ</h3><span>Brand Identity</span></figcaption>
+        </figure>
+        <figure class="piece">
+          <div class="art a2" role="img" aria-label="Grid of bold social media tiles in yellow, red and blue"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <figcaption><h3>Abhyaas</h3><span>Social Media</span></figcaption>
+        </figure>
+        <figure class="piece">
+          <div class="art a3" role="img" aria-label="Three overlapping posters in blue, orange and black"><i></i><i></i><i></i></div>
+          <figcaption><h3>Poster Collection</h3><span>Campaign Design</span></figcaption>
+        </figure>
+        <figure class="piece">
+          <div class="art a4" role="img" aria-label="Interface concept card with a blue call to action"><div class="ui"><i></i><i></i><i></i><i></i></div></div>
+          <figcaption><h3>UI Concept</h3><span>Digital Product</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head"><h2>How we work</h2></div>
+      <ol class="steps">
+        <li><h3>Listen</h3><p>We start with a conversation about your goals, audience and constraints.</p></li>
+        <li><h3>Define</h3><p>Research and a written direction we agree on before any design begins.</p></li>
+        <li><h3>Design</h3><p>Sketches become systems. You review in short rounds, not long silences.</p></li>
+        <li><h3>Deliver</h3><p>Final files, guidelines and support so your team can use the work on day one.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="clients" aria-label="Clients">
+    <div class="wrap">
+      <ul class="logos">
+        <li>NOIRÉ</li><li>Abhyaas</li><li>Kiln&amp;Co</li><li>Fieldnote</li><li>Orbit</li><li>Halcyon</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <h2>Let’s make something.</h2>
+      <div class="side">
+        <p>Tell us about your project.</p>
+        <a class="mail" href="mailto:hello@mono.studio">hello@mono.studio</a>
+      </div>
+      <form action="mailto:hello@mono.studio" method="post" enctype="text/plain">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field wide"><label for="msg">Project details</label><textarea id="msg" name="message" required></textarea></div>
+        <button class="btn" type="submit">SEND MESSAGE</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 MONO Studio</span><span>Branding / Digital / UI / Motion</span></div>
+</footer>
+
+</body>
+</html>
