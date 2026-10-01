@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const WORK_IMAGES = [
@@ -57,6 +57,23 @@ export default function GraphicDesignPage() {
   // SELECTED IMAGE
   // --------------------------------------------------
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  // --------------------------------------------------
+  // ALWAYS START FROM HERO SECTION
+  // --------------------------------------------------
+  useLayoutEffect(() => {
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    const timer = window.setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.history.scrollRestoration = 'auto';
+    };
+  }, [skill]);
 
   // --------------------------------------------------
   // TITLE SIZE
@@ -246,7 +263,6 @@ export default function GraphicDesignPage() {
           </a>
         </nav>
 
-
         {/* ==================================================
             BIG TITLE
         ================================================== */}
@@ -283,7 +299,6 @@ export default function GraphicDesignPage() {
 
       </section>
 
-
       {/* ==================================================
           SELECTED WORK
       ================================================== */}
@@ -316,7 +331,6 @@ export default function GraphicDesignPage() {
           >
             Selected Work
           </h2>
-
 
           {/* ==================================================
               MASONRY IMAGE GALLERY
@@ -381,7 +395,6 @@ export default function GraphicDesignPage() {
         </div>
 
       </section>
-
 
       {/* ==================================================
           IMAGE LIGHTBOX
@@ -485,7 +498,6 @@ export default function GraphicDesignPage() {
 
           </button>
 
-
           {/* ==================================================
               PREVIOUS BUTTON
           ================================================== */}
@@ -542,7 +554,6 @@ export default function GraphicDesignPage() {
 
           </button>
 
-
           {/* ==================================================
               LIGHTBOX IMAGE
           ================================================== */}
@@ -557,7 +568,6 @@ export default function GraphicDesignPage() {
               rounded-2xl
             "
           />
-
 
           {/* ==================================================
               NEXT BUTTON
@@ -614,7 +624,6 @@ export default function GraphicDesignPage() {
             />
 
           </button>
-
 
           {/* ==================================================
               IMAGE COUNTER

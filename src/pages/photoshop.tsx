@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const WORK_IMAGES = [
@@ -58,16 +58,32 @@ export default function Photoshop() {
     PAGE_TITLES[skill || 'graphic-design'] || 'Graphic Design';
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   // ==================================================
   // ALWAYS OPEN PAGE FROM THE TOP
   // ==================================================
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'auto',
-    });
+  useLayoutEffect(() => {
+    // Prevent the browser from restoring the previous
+    // scroll position when this page is opened.
+    window.history.scrollRestoration = 'manual';
+
+    // Immediately move to the top.
+    window.scrollTo(0, 0);
+
+    // Extra safeguard against React Router/browser
+    // restoring the previous scroll position afterward.
+    const timer = window.setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timer);
+
+      // Restore normal browser behavior when leaving
+      // this page.
+      window.history.scrollRestoration = 'auto';
+    };
   }, [skill]);
 
   // ==================================================

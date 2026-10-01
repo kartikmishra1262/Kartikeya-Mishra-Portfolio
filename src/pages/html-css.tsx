@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const PAGE_TITLES: Record<string, string> = {
@@ -32,6 +33,23 @@ export default function HtmlCssPage() {
 
   const pageTitle =
     PAGE_TITLES[skill || 'html-css'] || 'HTML & CSS';
+
+  // ==================================================
+  // ALWAYS START FROM HERO SECTION
+  // ==================================================
+  useLayoutEffect(() => {
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    const timer = window.setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.history.scrollRestoration = 'auto';
+    };
+  }, [skill]);
 
   // ==================================================
   // TITLE SIZE
@@ -139,7 +157,6 @@ export default function HtmlCssPage() {
           </a>
         </nav>
 
-
         {/* ==================================================
             BIG TITLE
         ================================================== */}
@@ -176,7 +193,6 @@ export default function HtmlCssPage() {
 
       </section>
 
-
       {/* ==================================================
           SELECTED WORK
       ================================================== */}
@@ -209,7 +225,6 @@ export default function HtmlCssPage() {
           >
             Selected Work
           </h2>
-
 
           {/* ==================================================
               PROJECT GRID
@@ -346,7 +361,6 @@ export default function HtmlCssPage() {
 
                   </div>
 
-
                   {/* ==================================================
                       ACTUAL HTML WEBSITE
                   ================================================== */}
@@ -371,7 +385,6 @@ export default function HtmlCssPage() {
                     "
                     loading="lazy"
                   />
-
 
                   {/* ==================================================
                       HOVER OVERLAY
@@ -421,7 +434,6 @@ export default function HtmlCssPage() {
 
                 </div>
 
-
                 {/* ==================================================
                     PROJECT INFORMATION
                 ================================================== */}
@@ -467,7 +479,6 @@ export default function HtmlCssPage() {
                     </p>
 
                   </div>
-
 
                   <span
                     className="
