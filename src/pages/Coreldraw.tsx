@@ -2,38 +2,17 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const WORK_IMAGES = [
-  '/work/work1.jpg',
-  '/work/work2.jpg',
-  '/work/work3.jpg',
-  '/work/work4.jpg',
-  '/work/work5.jpg',
-  '/work/work6.jpg',
-  '/work/work7.jpg',
-  '/work/work8.jpg',
-  '/work/work9.jpg',
-  '/work/work10.jpg',
-  '/work/work11.jpg',
-  '/work/work12.jpg',
-  '/work/work13.jpg',
-  '/work/work14.jpg',
-  '/work/work15.jpg',
-  '/work/work16.jpg',
-  '/work/work17.jpg',
-  '/work/work18.jpg',
-  '/work/work19.jpg',
-  '/work/work20.jpg',
-  '/work/work21.jpg',
-  '/work/work22.jpg',
-  '/work/work23.jpg',
-  '/work/work24.jpg',
-  '/work/work25.jpg',
-  '/work/work26.jpg',
-  '/work/work27.jpg',
-  '/work/work28.jpg',
-  '/work/work29.jpg',
-  '/work/work30.jpg',
-  '/work/work31.jpg',
-  '/work/work32.jpg',
+  '/coreldrawwork/corelwork1.jpeg',
+  '/coreldrawwork/corelwork2.jpeg',
+  '/coreldrawwork/corelwork3.jpeg',
+  '/coreldrawwork/corelwork4.jpeg',
+  '/coreldrawwork/corelwork5.jpeg',
+  '/coreldrawwork/corelwork6.jpeg',
+  '/coreldrawwork/corelwork7.jpeg',
+  '/coreldrawwork/corelwork8.jpeg',
+  '/coreldrawwork/corelwork9.jpeg',
+  '/coreldrawwork/corelwork10.jpeg',
+  '/coreldrawwork/corelwork11.jpeg',
 ];
 
 const PAGE_TITLES: Record<string, string> = {
@@ -152,7 +131,6 @@ export default function GraphicDesignPage() {
       className="min-h-screen w-full"
       style={{ backgroundColor: '#0C0C0C' }}
     >
-
       {/* ==================================================
           TOP SECTION
       ================================================== */}
@@ -246,7 +224,6 @@ export default function GraphicDesignPage() {
           </a>
         </nav>
 
-
         {/* ==================================================
             BIG TITLE
         ================================================== */}
@@ -280,9 +257,7 @@ export default function GraphicDesignPage() {
             {pageTitle}
           </h1>
         </div>
-
       </section>
-
 
       {/* ==================================================
           SELECTED WORK
@@ -296,7 +271,6 @@ export default function GraphicDesignPage() {
           md:pb-32
         "
       >
-
         <div className="w-full">
 
           {/* ==================================================
@@ -317,7 +291,6 @@ export default function GraphicDesignPage() {
             Selected Work
           </h2>
 
-
           {/* ==================================================
               MASONRY IMAGE GALLERY
 
@@ -336,9 +309,7 @@ export default function GraphicDesignPage() {
               md:gap-4
             "
           >
-
             {WORK_IMAGES.map((image, index) => (
-
               <div
                 key={image}
                 onClick={() => setSelectedIndex(index)}
@@ -355,7 +326,6 @@ export default function GraphicDesignPage() {
                   bg-[#151515]
                 "
               >
-
                 <img
                   src={image}
                   alt={`${pageTitle} Work ${index + 1}`}
@@ -371,23 +341,16 @@ export default function GraphicDesignPage() {
                   "
                   loading="lazy"
                 />
-
               </div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* ==================================================
           IMAGE LIGHTBOX
       ================================================== */}
       {selectedIndex !== null && (
-
         <div
           className="
             fixed
@@ -437,7 +400,6 @@ export default function GraphicDesignPage() {
             "
             aria-label="Close image preview"
           >
-
             <span
               className="
                 relative
@@ -448,7 +410,6 @@ export default function GraphicDesignPage() {
                 block
               "
             >
-
               {/* X - Line 1 */}
               <span
                 className="
@@ -480,11 +441,8 @@ export default function GraphicDesignPage() {
                   -rotate-45
                 "
               />
-
             </span>
-
           </button>
-
 
           {/* ==================================================
               PREVIOUS BUTTON
@@ -524,7 +482,6 @@ export default function GraphicDesignPage() {
             "
             aria-label="Previous image"
           >
-
             <span
               className="
                 block
@@ -539,9 +496,7 @@ export default function GraphicDesignPage() {
                 translate-x-[2px]
               "
             />
-
           </button>
-
 
           {/* ==================================================
               LIGHTBOX IMAGE
@@ -557,7 +512,6 @@ export default function GraphicDesignPage() {
               rounded-2xl
             "
           />
-
 
           {/* ==================================================
               NEXT BUTTON
@@ -597,7 +551,6 @@ export default function GraphicDesignPage() {
             "
             aria-label="Next image"
           >
-
             <span
               className="
                 block
@@ -612,9 +565,7 @@ export default function GraphicDesignPage() {
                 -translate-x-[2px]
               "
             />
-
           </button>
-
 
           {/* ==================================================
               IMAGE COUNTER
@@ -638,9 +589,7 @@ export default function GraphicDesignPage() {
           </div>
 
         </div>
-
       )}
-
     </div>
   );
 }

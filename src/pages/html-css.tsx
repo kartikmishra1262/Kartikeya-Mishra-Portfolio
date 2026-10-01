@@ -15,6 +15,16 @@ const HTML_PROJECTS = [
     description: 'Creative Website — HTML & CSS',
     url: '/Projects/verve/verve.html',
   },
+  {
+    title: 'AURA',
+    description: 'Creative Website — HTML & CSS',
+    url: '/Projects/aura/aura.html',
+  },
+  {
+    title: 'NOIRÉ',
+    description: 'Luxury Creative Website — HTML & CSS',
+    url: '/Projects/noire/noire.html',
+  },
 ];
 
 export default function HtmlCssPage() {
