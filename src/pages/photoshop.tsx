@@ -60,29 +60,40 @@ export default function Photoshop() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   // ==================================================
-  // ALWAYS OPEN PAGE FROM THE TOP
+  // OPEN THIS PAGE FROM THE TOP
   // ==================================================
 
   useLayoutEffect(() => {
-    // Prevent the browser from restoring the previous
-    // scroll position when this page is opened.
+    const previousScrollRestoration =
+      window.history.scrollRestoration;
+
+    // Temporarily prevent the browser from restoring
+    // the previous page's scroll position while this
+    // Photoshop page is being opened.
     window.history.scrollRestoration = 'manual';
 
-    // Immediately move to the top.
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
 
-    // Extra safeguard against React Router/browser
-    // restoring the previous scroll position afterward.
     const timer = window.setTimeout(() => {
-      window.scrollTo(0, 0);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant',
+      });
     }, 0);
 
     return () => {
       window.clearTimeout(timer);
 
-      // Restore normal browser behavior when leaving
-      // this page.
-      window.history.scrollRestoration = 'auto';
+      // IMPORTANT:
+      // Restore the browser's normal scroll restoration
+      // when leaving this page.
+      window.history.scrollRestoration =
+        previousScrollRestoration || 'auto';
     };
   }, [skill]);
 
@@ -123,13 +134,13 @@ export default function Photoshop() {
   // ==================================================
 
   const showPreviousImage = () => {
-    if (selectedIndex === null) return;
+    setSelectedIndex((current) => {
+      if (current === null) return null;
 
-    setSelectedIndex(
-      selectedIndex === 0
+      return current === 0
         ? WORK_IMAGES.length - 1
-        : selectedIndex - 1
-    );
+        : current - 1;
+    });
   };
 
   // ==================================================
@@ -137,13 +148,13 @@ export default function Photoshop() {
   // ==================================================
 
   const showNextImage = () => {
-    if (selectedIndex === null) return;
+    setSelectedIndex((current) => {
+      if (current === null) return null;
 
-    setSelectedIndex(
-      selectedIndex === WORK_IMAGES.length - 1
+      return current === WORK_IMAGES.length - 1
         ? 0
-        : selectedIndex + 1
-    );
+        : current + 1;
+    });
   };
 
   // ==================================================
@@ -182,7 +193,10 @@ export default function Photoshop() {
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener(
+        'keydown',
+        handleKeyDown
+      );
     };
   }, [selectedIndex]);
 
@@ -201,6 +215,10 @@ export default function Photoshop() {
       document.body.style.overflow = '';
     };
   }, [selectedIndex]);
+
+  // ==================================================
+  // PAGE
+  // ==================================================
 
   return (
     <div
@@ -305,7 +323,6 @@ export default function Photoshop() {
 
         </nav>
 
-
         {/* ==================================================
             BIG HERO TITLE
         ================================================== */}
@@ -345,7 +362,6 @@ export default function Photoshop() {
 
       </section>
 
-
       {/* ==================================================
           SELECTED WORK
       ================================================== */}
@@ -381,16 +397,8 @@ export default function Photoshop() {
             Selected Work
           </h2>
 
-
           {/* ==================================================
               MASONRY GALLERY
-
-              Mobile  = 2 columns
-              Desktop = 4 columns
-
-              Original image proportions preserved.
-              No cropping.
-              No stretching.
           ================================================== */}
 
           <div
@@ -446,7 +454,6 @@ export default function Photoshop() {
         </div>
 
       </section>
-
 
       {/* ==================================================
           IMAGE LIGHTBOX
@@ -550,7 +557,6 @@ export default function Photoshop() {
 
           </button>
 
-
           {/* ==================================================
               PREVIOUS BUTTON
           ================================================== */}
@@ -608,7 +614,6 @@ export default function Photoshop() {
 
           </button>
 
-
           {/* ==================================================
               LIGHTBOX IMAGE
           ================================================== */}
@@ -624,7 +629,6 @@ export default function Photoshop() {
               object-contain
             "
           />
-
 
           {/* ==================================================
               NEXT BUTTON
@@ -682,7 +686,6 @@ export default function Photoshop() {
             />
 
           </button>
-
 
           {/* ==================================================
               IMAGE COUNTER
