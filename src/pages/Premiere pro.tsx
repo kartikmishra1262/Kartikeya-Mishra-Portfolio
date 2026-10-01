@@ -83,9 +83,9 @@ export default function GraphicDesignPage() {
   // BROWSER BACK BUTTON / HISTORY
   // --------------------------------------------------
   useEffect(() => {
-    const handlePopState = () => {
-      // If a video is currently open, browser Back closes
-      // the lightbox instead of changing the page.
+    const handlePopState = (event: PopStateEvent) => {
+      // Browser Back while video is open:
+      // close the lightbox instead of leaving the page.
       if (selectedIndex !== null) {
         setSelectedIndex(null);
       }
@@ -104,11 +104,13 @@ export default function GraphicDesignPage() {
   const openVideo = (index: number) => {
     setSelectedIndex(index);
 
-    // Add a temporary history entry for the lightbox.
-    // This allows the browser Back button to close the
-    // lightbox without leaving the current page.
+    // Add one temporary history entry for the lightbox.
+    // This makes the browser Back button close the lightbox.
     window.history.pushState(
-      { videoLightbox: true },
+      {
+        ...window.history.state,
+        videoLightbox: true,
+      },
       '',
       window.location.href
     );
@@ -120,13 +122,28 @@ export default function GraphicDesignPage() {
   const closeVideo = () => {
     if (selectedIndex === null) return;
 
-    // If the current history entry belongs to the lightbox,
-    // go back one step. The popstate listener will close it.
-    if (window.history.state?.videoLightbox) {
-      window.history.back();
-    } else {
-      setSelectedIndex(null);
-    }
+    /*
+      IMPORTANT:
+
+      Do NOT use window.history.back() here.
+
+      The X button should simply close the lightbox.
+      Browser Back is handled separately by popstate.
+    */
+
+    setSelectedIndex(null);
+
+    // Remove the lightbox flag from the current history state.
+    // This prevents the next browser Back from being interpreted
+    // as another lightbox close.
+    window.history.replaceState(
+      {
+        ...window.history.state,
+        videoLightbox: false,
+      },
+      '',
+      window.location.href
+    );
   };
 
   // --------------------------------------------------
@@ -673,6 +690,7 @@ export default function GraphicDesignPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <iframe
+              key={WORK_VIDEOS[selectedIndex].id}
               src={`https://www.youtube.com/embed/${WORK_VIDEOS[selectedIndex].id}?rel=0&autoplay=1`}
               title={WORK_VIDEOS[selectedIndex].title}
               className="
