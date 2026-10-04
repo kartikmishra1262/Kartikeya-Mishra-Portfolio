@@ -3,28 +3,8 @@ import { useParams } from 'react-router-dom';
 
 const WORK_VIDEOS = [
   {
-    id: 'N_IdzSZe-6k',
+    id: 'Vy1tyqVGQTU',
     title: 'Video Work 01',
-    aspectRatio: '16 / 9',
-  },
-  {
-    id: '4FTD0CP7i1E',
-    title: 'Video Work 02',
-    aspectRatio: '16 / 9',
-  },
-  {
-    id: '1w7LyjWL1X8',
-    title: 'Video Work 03',
-    aspectRatio: '16 / 9',
-  },
-  {
-    id: 'h9GHKaQOEWc',
-    title: 'Video Work 04',
-    aspectRatio: '16 / 9',
-  },
-  {
-    id: 'mbQAGClnpXI',
-    title: 'Video Work 05',
     aspectRatio: '16 / 9',
   },
 ];
