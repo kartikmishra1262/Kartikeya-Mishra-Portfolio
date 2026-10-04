@@ -407,7 +407,7 @@ export default function EducationSection() {
               </div>
               <div className="border-t border-[#D7E2EA]/15 pt-7">
   <a
-    href="/Kartikey_Mishra_Graphic_UI_Designer_Resume.pdf"
+    href="/Kartikeya_Mishra_Resume.pdf"
     target="_blank"
     rel="noopener noreferrer"
     className="inline-block"

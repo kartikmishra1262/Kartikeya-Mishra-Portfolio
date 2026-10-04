@@ -25,6 +25,7 @@ const WORK_VIDEOS = [
   '9crtCw42FC4',
   '7Wf_YB0tRk4',
   '3amSaShhurE',
+  'J_5akRykht4',
 ];
 
 const PAGE_TITLES: Record<string, string> = {
